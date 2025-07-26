@@ -1,6 +1,6 @@
 // Variables
 var firstname = "kartik"; //var is function scope should not use
-let rollNo = 342; //block cope
+let rollNo = 342; //block s   cope
 const age = 22; //block scope const val doesnot update.
 
 console.log(firstname);
