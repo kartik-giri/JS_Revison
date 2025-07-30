@@ -1,4 +1,4 @@
-//Promised version of reading file
+// //Promised version of reading file
 const fs = require('fs');
 
 let readFileFunc=(resolve) => {
@@ -19,7 +19,7 @@ readFilePromise(readFileFunc).then(callBackAfterPromiseDone);
 
 
 //Proimise is a class.
-//We can instanitate the pormise pbject by pasing the function signature which have resolve argument.
+//We can instanitate the pormise object by pasing the function signature which have resolve argument.
 //Once async task is complete call the resolve function to get the data means promise is resolved.
 //and to get the data call back the function.
 
@@ -48,3 +48,18 @@ let funcTimeoutResult = funcTimeout(3000);
 funcTimeoutResult.then(()=>{
     console.log("after 3 seconds")
 })
+
+
+
+//Promisized version of reading file.
+let promisedReadFile = new Promise((resolve)=>{
+    fs.readFile("wish.txt", "utf-8", (err,data)=>{
+        resolve(data);
+    })
+})
+
+promisedReadFile.then((data)=>{
+    console.log(data);
+})
+
+
