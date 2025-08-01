@@ -29,33 +29,120 @@ asyncTimeout();
 //async await file read
 
 
-let funcReadFile = () => {
-  const filePath = path.join(__dirname, "wish.txt");
-  console.log("Current directory:", process.cwd());
-  console.log("Looking for file at:", filePath);
+// let funcReadFile = () => {
+//   const filePath = path.join(__dirname, "wish.txt");
+//   console.log("Current directory:", process.cwd());
+//   console.log("Looking for file at:", filePath);
 
-  return new Promise((resolve, reject) => {
-    if (!fs.existsSync(filePath)) {
-      reject(new Error("File does not exist"));
-      return;
-    }
-    fs.readFile(filePath, "utf-8", (err, data) => {
-      if (err) {
+//   return new Promise((resolve, reject) => {
+//     if (!fs.existsSync(filePath)) {
+//       reject(new Error("File does not exist"));
+//       return;
+//     }
+//     fs.readFile(filePath, "utf-8", (err, data) => {
+//       if (err) {
+//         reject(err);
+//       } else {
+//         resolve(data);
+//       }
+//     });
+//   });
+// };
+
+// let readFileAsync = async () => {
+//   try {
+//     let data = await funcReadFile();
+//     console.log("File content:\n", data);
+//   } catch (err) {
+//     console.error("Failed to read file:", err.message);
+//   }
+// };
+
+// readFileAsync();
+
+
+
+let funcReadFilePromise = ()=>{
+  return new Promise((resolve,reject)=>{
+    fs.readFile("wish.txt", "utf-8", (err,data)=>{
+      if(err){
         reject(err);
-      } else {
+      }else{
         resolve(data);
       }
-    });
-  });
-};
+    })
+  })
+}
 
-let readFileAsync = async () => {
-  try {
-    let data = await funcReadFile();
-    console.log("File content:\n", data);
-  } catch (err) {
-    console.error("Failed to read file:", err.message);
+let asyncReadFile = async()=>{
+  try{
+    let readFileResult = await funcReadFilePromise();
+    console.log("File data is:", readFileResult);
+  }catch(err){
+    console.log("Error is:", err)
   }
-};
 
-readFileAsync();
+}
+
+asyncReadFile()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

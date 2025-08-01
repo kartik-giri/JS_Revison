@@ -181,8 +181,11 @@ let usersObjectArrayWithGender = [
     }, 
 ]
 
-let find_18AboveMaleUser =(userObjectArray)=>{
-    let new18AboveMaleUsers = userObjectArray.filter(elem => elem.age > 18 && elem.gender == "male");
+let find_18AboveMaleUser =(userObjectArray)=>{ 
+    // let new18AboveMaleUsers = userObjectArray.filter(elem => elem.age > 18 && elem.gender == "male");
+    let new18AboveMaleUsers = userObjectArray.filter((elem)=>{
+        elem.age > 18 && elem.gender == "male"
+    });
     return new18AboveMaleUsers;
 }
 
