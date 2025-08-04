@@ -9,9 +9,20 @@
 	
 	<body id="container">
         <div>
-	  <h1>Todo list</h1>
-	  <h4>1. Take class</h4>
-	  <h4>2. Go out to eat</h4>
+	<div id="TodoContainer">
+		<h1>Todo List</h4>
+
+		<div id="Todo-1" style="display: flex;">
+	   <h4>1. Go out to eat</h4>
+	  <button onclick="deleteTodo(1)">Delete</button>
+	  </div>
+
+	  	<div id="Todo-2" style="display: flex;">
+	  <h4>2. Do coding</h4>
+	  <button onclick="deleteTodo(2)">Delete</button>
+	  </div>
+
+    </div>
 	  <div>
 	    <input type="text" placeholder="Enter you todo..." id="textFeed"></input>
 	    <button onclick="getFeedData()">Add Todo</button>
