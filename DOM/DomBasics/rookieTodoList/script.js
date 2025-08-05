@@ -9,11 +9,10 @@ let addTodo = ()=>{
     //Updating list.
     let newTodo = document.createElement("div");
     newTodo.setAttribute("id", "todo-"+count);
-    newTodo.innerHTML= `<h4>${count}. ${feedValue}</h4> <button onclick="deleteTodo(${count})">Delete</button>`
+    newTodo.innerHTML= `<h4>${feedValue}</h4> <button onclick="deleteTodo(${count})">Delete</button>`
     let todoParent = document.querySelector("#listContainer");
     todoParent.appendChild(newTodo);
     count++;
-    index++;
 }
 
 let deleteTodo = (count)=>{
