@@ -20,7 +20,7 @@ setTimeoutPromisified(3000).then(callback)
 
 
 //Code to create a base of promise.
-function waitFor3Sec(resolve){
+function waitFor3Sec(resolve){ 
     setTimeout(resolve , 5000)
 }
 

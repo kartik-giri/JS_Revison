@@ -11,9 +11,10 @@ render()
 }
 
 //See it as a component
-let addTodoFunc = (arrObj)=>{
+let addTodoFunc = (arrObj )=>{
     let divTodo = document.createElement("div");
-    divTodo.setAttribute("id",count)
+    divTodo.setAttribute("id", count)
+    divTodo.setAttribute("class", "todoItem")
 
     let todoTitle = document.createElement("span");
     todoTitle.innerHTML=arrObj.title;

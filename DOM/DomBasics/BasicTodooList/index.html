@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-List basic</title>
+</head>
+<body>
+    <h1>Basic Todo List</h1>
+    
+    <div class="List-container">
+    
+        <div id="todo-1">
+          <h2>1. Go to gym</h2>  
+          <button onclick="deleteTodo(1)">delete</button>
+        </div>
+        
+        <div id="todo-2">
+            <h2>2. Eat my protein</h2>
+             <button onclick="deleteTodo(2)">delete</button>
+        </div>
+
+    </div>
+
+    <div>
+        <input type="text" placeholder="Enter the todo" id="text-feed">
+        <button onclick="retrieveTodo()">Add-Todo</button>
+    </div>
+
+</body>
+<script src="script.js"></script>
+</html>

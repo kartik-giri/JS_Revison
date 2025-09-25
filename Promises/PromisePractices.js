@@ -62,4 +62,41 @@ promisedReadFile.then((data)=>{
     console.log(data);
 })
 
+let prmiseResult = new Promise((resolve, reject)=>{
+    fs.readFile("a.txt", "utf-8",(err,data)=>{
+        if(err){
+            reject(err);
+        }else{
+            resolve(data);
+        }
+    } )
+})
+
+prmiseResult.then((result)=>{
+    console.log(result)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
