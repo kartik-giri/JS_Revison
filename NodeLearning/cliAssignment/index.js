@@ -14,6 +14,7 @@ Program → Command → Arguments → Options
 */
 
 //<name> => There will be a required argument named name.
+//process.argv used to get argument arrays passed in terminal.
 
 const { program } = require('commander');
 const fs = require('fs');
@@ -24,6 +25,8 @@ const fs = require('fs');
 program.name("CLI assignment")
        .description("ClI for counting number of words in a given file")
        .version("1.0.0")
+
+program.command("count")
        .argument("<filePath>","path of the given file")
        .action((filePath)=>{
         fs.readFile(filePath, "utf-8", (err,content)=>{
@@ -40,3 +43,47 @@ program.name("CLI assignment")
 program.parse();//It’s the method that tells Commander:
 //“Okay, take everything the user typed in the terminal and parse it according to the arguments and options I defined.”
 //Without program.parse(), Commander won’t read or process anything.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+const fs = require('fs');
+const { Command } = require('commander');
+const program = new Command();
+
+program
+  .name('counter')
+  .description('CLI to do file based tasks')
+  .version('0.8.0');
+
+program.command('count')
+  .description('Count the number of lines in a file')
+  .argument('<file>', 'file to count')
+  .action((file) => {
+    fs.readFile(file, 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        const lines = data.split('\n').length;
+        console.log(`There are ${lines} lines in ${file}`);
+      }
+    });
+  });
+
+program.parse();
+*/
