@@ -50,7 +50,7 @@ program.command("addTodo")
                     }
                 })
 
-                console.log(todoName,"todo is deleted!");
+                console.log(`The todo ${todoName} is deleted from todo`);
             }
         })
        })

@@ -33,7 +33,8 @@ program.command("count")
             if(err){
                 console.log("Can read file cause of this error:",err);
             }else{
-                let wordsArr = content.trim().split(/\s+/);
+              //The / ... / notation is how you write a regex pattern directly in your code.
+                let wordsArr = content.trim().split(/\s+/); //split() takes a string and breaks it into an array based on a separator.
                 console.log("The words in given file are:",wordsArr.length);
             }
         })
