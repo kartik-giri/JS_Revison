@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    It is just same as installing sxios package in node project.
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+</head>
+    <title>Document</title>
+</head>
+<body class="Container">
+    <H1 id="posts"></H1>
+    
+</body>
+
+<script>
+    const FetchAPI = async ()=>{
+
+        const res = await axios.get("https://jsonplaceholder.typicode.com/posts/1"); //here is no way to call .json() asyc func
+         document.querySelector("#posts").textContent=res.data.id;
+
+    }
+
+    FetchAPI();
+</script>
+</html>

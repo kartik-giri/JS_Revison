@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API</title>
+</head>
+<body class="Container">
+    <H1 id="posts"></H1>
+    
+</body>
+<script>
+    const FetchAPI = async ()=>{
+       //This method reads the response body and parses it as JSON.
+       //But here’s the key part: .json() itself is asynchronous — it returns a Promise.
+       //When it’s done, it gives you the parsed JavaScript object (not a JSON string anymore).
+       const res = await fetch('https://jsonplaceholder.typicode.com/posts/1');
+       const json = await res.json();
+       console.log(json.id);
+       document.querySelector("#posts").textContent=json.body;
+    }
+
+    FetchAPI();
+</script>
+    
+   
+</html>
