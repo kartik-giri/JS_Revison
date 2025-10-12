@@ -14,7 +14,7 @@ program.command("addTodo")
                 console.log("Can't read file cause of error:", err);
             }
             else{
-                let todoData = JSON.parse(data);
+                let todoData = JSON.parse(data);//JSON.parse() converts a JSON string → into a JavaScript object.
 
                 let newId = todoData.length>0? todoData[todoData.length-1].id+1 : 1;
 

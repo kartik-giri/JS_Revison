@@ -54,8 +54,8 @@ res.json({result});
 });
 
 app.post("/div", function(req, res) {
-let a = parseInt(req.params.a);
-let b = parseInt(req.params.b);
+let a = parseInt(req.body.a);
+let b = parseInt(req.body.b);
 let result = a/b;
 res.json({result});
 });
