@@ -1,19 +1,11 @@
 const express = require('express');
+const jwt = require("jsonwebtoken");
 
 const app = express()
 
+const jwt_secret = "yoItisSecret!";
 const users = [];
 
-const generateToken=()=> {
-    let options = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-
-    let token = "";
-    for (let i = 0; i < 32; i++) {
-        // use a simple function here
-        token += options[Math.floor(Math.random() * options.length)]; //0->32 find any number and than floor it mean round up.
-    }
-    return token;
-}
 
 app.use(express.json());
 
@@ -40,18 +32,20 @@ app.post('/sign-in', (req, res) => {
     return elem.username === userName && elem.userpassword === userPassword;
   })
   console.log("Sign in user:", userFound)
-
+  
+  let token = "";
   if(userFound){
-    const token = generateToken();
-    userFound.token = token;
+    token = jwt.sign({
+        user: userFound.username
+    }, jwt_secret);
     console.log(userFound);
   }
 
 
   if(userFound){ 
   res.json({
-    message: `You are signed in and your token is ${userFound.token}.`,
-    token: `${userFound.token}`
+    message: `You are signed in and your token is ${token}.`,
+    token: `${token}`
   })}else{
     res.status(400).json({
         message: `Sorry you can't sign in, wrong credentials!`
@@ -64,8 +58,12 @@ app.post('/sign-in', (req, res) => {
 
 app.get("/me", (req, res)=>{
     let userToken = req.headers.authorization;
+
+    let decodedInformation = jwt.verify(userToken, jwt_secret);
+    let usersign = decodedInformation.user;
+
     let userFound = users.find((elem)=>{
-        return elem.token == userToken;
+        return elem.username == usersign;
     })
     // console.log(userFound)
     if(userFound){
@@ -80,4 +78,4 @@ app.get("/me", (req, res)=>{
 })
 
 
-app.listen(3001);
+app.listen(3002);
