@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-stack Auth</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="signUp">
+        <textarea name="" id="userText" placeholder="Enter your name"></textarea> 
+        <textarea name="" id="passwordText" placeholder="Enter your password"></textarea> 
+        <button id="btnUp" onclick="funcSignUp()">Sign-up</button>
+
+    </div>
+
+        <div id="signin">
+        <textarea name="" id="userIn" placeholder="Enter your name"></textarea> 
+        <textarea name="" id="passwordIn" placeholder="Enter your password"></textarea> 
+        <button id="btnIn" onclick="funcSignIn()">Sign-in</button>
+
+    </div>
+
+    <div id="InfoContainer">
+        <p>User Information:</p>
+    </div>
+
+    <button id="Log-out" onclick="logout()">Log-out</button>
+</body>
+
+<script src="script.js"></script>
+</html>
