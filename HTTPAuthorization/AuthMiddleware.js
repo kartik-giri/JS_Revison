@@ -18,6 +18,7 @@ const auth = (req,res,next)=>{
         }
         else{
             req.userName = decodeData;
+            next();
         }
     })
  }else{
@@ -25,7 +26,6 @@ const auth = (req,res,next)=>{
                 message: "Users is not sign-in"
             })
  }
-next();
 
 }
 

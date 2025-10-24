@@ -8,6 +8,7 @@ let users = [];
 const JWT_Secret = "Iamsecret";
 
 app.use(express.json());
+
 app.use(cors({
     domain:["http://127.0.0.1:5500/index.html"]
 }))
@@ -55,6 +56,8 @@ const auth = (req,res,next)=>{
     let userToken = req.headers.authorization;
 
     if(userToken){
+        //Asynchronous Version (callback)
+        //But in modern time we use sync way of jwt verify with try and catch
         jwt.verify(userToken, JWT_Secret, (err, authData)=>{
             if(err){
                 res.status(400).json({
@@ -62,7 +65,7 @@ const auth = (req,res,next)=>{
                 })
             }else{
                 req.userName = authData.userName;
-                
+                next()
             }
         })
     }else{
@@ -70,7 +73,6 @@ const auth = (req,res,next)=>{
             message: "error 400!"
         })
     }
-    next()
 }
 
 app.get(`/me`, auth, (req, res)=>{
