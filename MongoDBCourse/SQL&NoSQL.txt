@@ -1,0 +1,59 @@
+🧠 1️⃣ What is a Database?
+A database is a structured place to store, organize, and retrieve data efficiently.
+
+There are two main types:
+SQL (Relational Databases)
+NoSQL (Non-Relational Databases)
+
+
+🧩 2️⃣ SQL Databases
+SQL = Structured Query Language
+Examples:
+✅ MySQL
+✅ PostgreSQL
+✅ SQLite
+✅ Microsoft SQL Server
+
+These databases store data in tables (rows & columns), like spreadsheets.
+
+📘 Example — Users Table
+id	name	email	age
+1	John	john@gmail.com	25
+2	Alice	alice@gmail.com	30
+📜 Query Example
+SELECT name, email FROM users WHERE age > 25;
+
+
+✅ SQL Databases are structured and have a schema —
+you must define the table structure (columns and types) before inserting data.
+
+
+🧩 3️⃣ NoSQL Databases
+NoSQL = Not Only SQL
+Examples:
+✅ MongoDB In mongoDB it containes database and db contains collection and collection contains document which have json object. And every document have unique ID
+✅ Firebase Firestore
+✅ Cassandra
+✅ DynamoDB
+
+These store data in flexible document-like formats (usually JSON).
+
+📘 Example — MongoDB Document
+{
+  "name": "John",
+  "email": "john@gmail.com",
+  "age": 25,
+  "hobbies": ["coding", "music"]
+}
+
+You can store different types of data in the same collection — no strict schema required.
+
+
+⚖️ 4️⃣ SQL vs NoSQL — Key Differences
+Feature	SQL	NoSQL
+Data Structure	             Tables (rows/columns)	                        Collections & Documents (JSON-like)
+Schema	                     Fixed (must predefine columns)	                Flexible (can store any structure)
+Relationships	             Strong (joins supported)	                    Weak (usually manual references)
+Scalability	                 Vertical (add more power to one server)	    Horizontal (add more servers)
+Best for	                 Complex queries, consistent data	            Large, fast, flexible data
+Examples	                 MySQL, PostgreSQL	                            MongoDB, Firebase
