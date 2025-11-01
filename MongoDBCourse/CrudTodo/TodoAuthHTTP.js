@@ -2,8 +2,8 @@ const express = require("express");
 const { userModel, todosModel } = require("./DB");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const bcrypt = require('bcrypt');
-const {z} = require('zod');
+const bcrypt = require("bcrypt");
+const { z } = require("zod");
 
 /*
 Under the hood:
@@ -23,19 +23,28 @@ app.use(express.json());
 const jwtSecret = "IamSecret";
 
 app.post("/sign-up", async (req, res) => {
+  //creating zod checks schema
   const requireBody = z.object({
     userEmail: z.string().min(3).max(30).email(),
     userName: z.string().min(3).max(30),
-    userPassword: z.string().min(3).max(30)
-  })
+    userPassword: z.string().min(3).max(30),
+  });
 
   //Check if the user input passes the schema checks.
-  const {success} = requireBody.safeParse(req.body);
+  const { success, error } = requireBody.safeParse(req.body);
 
-  if(!success){
+  if (!success) {
+    const errMsgArr = error.issues.map((issue) => {
+      let errorCred = {
+        message: issue.message,
+        path: issue.path[0]
+      }
+      return errorCred;
+    });
     res.status(400).json({
-      message: "Incorect format"
-    })
+      message: "Incorect format",
+      error: errMsgArr
+    });
     return;
   }
 
@@ -44,7 +53,7 @@ app.post("/sign-up", async (req, res) => {
   const userPassword = req.body.userPassword;
 
   try {
-    const hashPassword = await bcrypt.hash(userPassword,10);
+    const hashPassword = await bcrypt.hash(userPassword, 8);
 
     await userModel.create({
       email: userEmail,
@@ -63,6 +72,7 @@ app.post("/sign-up", async (req, res) => {
 });
 
 app.post("/log-in", async (req, res) => {
+  //Here we can again use zod to check user input.
   const userEmail = req.body.userEmail;
   const userPassword = req.body.userPassword;
 
@@ -72,13 +82,13 @@ app.post("/log-in", async (req, res) => {
 
   console.log(findUser);
 
-  if(!findUser){
+  if (!findUser) {
     res.status(400).json({
       message: "User is not signed up!",
     });
     return;
   }
-  
+
   //Crucial to check if given password matches with the DB hashed password.
   //salt+password is hashed to get unique hash.
   //salt is added in front of gnerated hash.
