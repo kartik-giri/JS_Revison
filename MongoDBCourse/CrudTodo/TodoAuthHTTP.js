@@ -12,7 +12,7 @@ and runs them only after the database connection is successfully opened.
 So your app doesn’t crash — Mongoose simply buffers those operations until connected.
 */
 
-//Best way is to handle the returned promise. it is working because it is buffering and queing all mongoose calls and calling them when connection is established.
+//The best way is to handle the returned promise. it is working because it is buffering and queing all mongoose calls and calling them when connection is established.
 mongoose.connect(
   "mongodb+srv://kartikgiri1t30_db_user:tmOE0xWOLmKWtM0i@cluster0.ontnrw9.mongodb.net/Todo-App-DB"
 );
