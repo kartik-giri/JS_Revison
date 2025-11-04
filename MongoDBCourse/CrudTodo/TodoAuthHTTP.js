@@ -124,7 +124,7 @@ const auth = (req, res, next) => {
     next();
   } catch (err) {
     res.status(400).json({
-      message: `Error occured in auth middleware!`,
+      message: `Error occured in Auth middleware!`,
     });
   }
 };
