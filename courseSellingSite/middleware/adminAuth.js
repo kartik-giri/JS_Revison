@@ -8,7 +8,7 @@ const adminAuth= (req, res, next)=>{
     const verifyResult = jwt.verify(jwtToken, admin_secret);
     
     if(verifyResult){
-        req.adminId = verifyResult.Id;
+        req.adminId = verifyResult.id;
         next();
     }
     }catch(err){

@@ -37,3 +37,13 @@ app.use('/admin', adminRouter);
 ```
 - userRouter	/user	/sign-up	/user/sign-up
 - adminRouter	/admin	/sign-in	/admin/sign-in
+
+
+### What Is Express Router?
+
+👉 express.Router() is a mini-Express app — a separate instance of Express that you can use to:
+define routes in a modular way,
+group related routes together (e.g., all /user routes in one file),
+then attach that group to the main app with a prefix like /api/v1/user.
+In short:
+It helps organize your routes cleanly, instead of putting everything in one giant index.js.

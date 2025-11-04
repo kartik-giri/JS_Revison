@@ -99,10 +99,13 @@ userRouter.get('/purchases', userAuthMiddleware, async (req, res) => {
     const userId = req.userId;
 
     try {
-        const courseList = await purchaseModel.find({
+        const purchaseList = await purchaseModel.find({
             userId: userId
-        })
+        }).populate(`courseId`)
 
+        const courseList = purchaseList.map((elem)=>{
+            return elem.courseId
+        })
         res.json({
             message: courseList
         })

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const Schema = mongoose.Schema;
 const objectId = mongoose.Types.ObjectId;
 
@@ -31,10 +32,12 @@ const courseSchema = new Schema({
 const purchaseSchema = new Schema({
     //userId: references the user who purchased the course.
     //courseId: references the course that was purchased.
-    userId: objectId, 
-    courseId: objectId 
+    userId: {type : objectId, ref: `user`}, 
+    courseId: {type: objectId , ref: `course`}
 });
 
+//Model name: 'user'
+// Collection name: 'users' (Mongoose automatically pluralizes and lowercases the model name)
 const userModel = mongoose.model('user', userSchema);
 const adminModel = mongoose.model('admin', adminSchema);
 const courseModel = mongoose.model('course', courseSchema);

@@ -6,7 +6,9 @@ const { userModel, purchaseModel, courseModel } = require("../db")
 //We have added new course route because user route can be furthered break and it amke our code more readeable.
 //Purchase course
 courseRouter.post('/purchase', userAuthMiddleware, async (req, res) => {
-    const userId = req.body.userId;
+   
+    const userId = req.userId;
+    console.log(userId)
     const courseId = req.body.courseId;
     try {
         const purchaseResult = await purchaseModel.create({

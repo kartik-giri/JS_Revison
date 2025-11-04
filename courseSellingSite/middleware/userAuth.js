@@ -8,7 +8,7 @@ const userAuth = (req, res, next)=>{
     const verifyResult = jwt.verify(jwtToken, user_secret);
     
     if(verifyResult){
-        req.userId = verifyResult.Id;
+        req.userId = verifyResult.id;
         next();
     }
     }catch(err){
