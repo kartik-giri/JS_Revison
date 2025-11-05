@@ -20,4 +20,4 @@ async function main() {
     console.log("listening on port 3000")
 }
 
-main()
+main();
