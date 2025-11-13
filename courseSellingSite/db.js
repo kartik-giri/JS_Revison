@@ -36,7 +36,7 @@ const purchaseSchema = new Schema({
     courseId: {type: objectId , ref: `course`}
 });
 
-//Model name: 'user'
+//Model name: 'user' 
 // Collection name: 'users' (Mongoose automatically pluralizes and lowercases the model name)
 const userModel = mongoose.model('user', userSchema);
 const adminModel = mongoose.model('admin', adminSchema);

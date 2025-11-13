@@ -35,3 +35,14 @@ let randomFunc=()=>{
 }
 let randomPromise = new Promise(randomFunc);
 console.log(randomPromise);
+
+
+const promiseofSetInterval = (sec)=>{
+  return new Promise((resolve, reject)=>{
+    return setTimeout(resolve, sec);
+  })
+}
+
+promiseofSetInterval(1000).then(()=>{
+  console.log("It is a set Timeout promise")
+})

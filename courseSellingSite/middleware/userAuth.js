@@ -16,7 +16,7 @@ const userAuth = (req, res, next)=>{
             message: `JWT is not correct`
         })
     }
-}
+} 
 
 module.exports={
     userAuthMiddleware : userAuth

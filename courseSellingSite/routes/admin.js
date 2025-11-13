@@ -142,6 +142,7 @@ adminRouter.put('/course', adminAuthMiddleware, async (req, res) => {
         description: z.string().min(80).max(1200),
         price: z.string().min(10).max(100000),
         image: z.string(),
+        courseid: z.string(),
     })
 
     const success = courseInput.safeParse(req.body);
@@ -159,8 +160,9 @@ adminRouter.put('/course', adminAuthMiddleware, async (req, res) => {
     const adminId = req.adminId;
     const courseid = req.body.courseId;
     try {
-        const updatecourse = await courseModel.findByIdAndUpdate(
-            courseid, {
+        const updatecourse = await courseModel.updateOne(
+            courseid,
+            adminId, {
             title: title,
             description: description,
             price: price,
@@ -187,7 +189,7 @@ adminRouter.put('/course', adminAuthMiddleware, async (req, res) => {
 })
 
 //get all courses
-adminRouter.get('/course/bulk', async (req, res) => {
+adminRouter.get('/course/bulk', adminAuthMiddleware, async (req, res) => {
     const adminId = req.adminId;
     try {
         const allCourses = await courseModel.find({
@@ -204,11 +206,13 @@ adminRouter.get('/course/bulk', async (req, res) => {
 })
 
 //delete course
-adminRouter.delete('/course', async (req, res) => {
+adminRouter.delete('/course', adminAuthMiddleware, async (req, res) => {
     const courseId = req.body.courseId;
+    const adminId= req.adminId;
     try{
         const deleteCourse = await courseModel.deleteOne({
-            _id: courseId
+            _id: courseId,
+            creatorId: adminId
         })
         res.json({
             message:`Course delted successfully!`
@@ -235,9 +239,9 @@ module.exports = {
     
 
 }
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MTM2OGQzYjM5YzE2Y2EwYjg4ODM5MCIsImlhdCI6MTc2Mjg3OTcwNH0.forXUfTmUp36mRKdkXnwzQGp0T41CYcEuEaHBcjV9I0
 
-
-
+6913697b71ec7adef75d801d
 {
    "title":"Learn java from scratch",
    "description": "Best course for c++",

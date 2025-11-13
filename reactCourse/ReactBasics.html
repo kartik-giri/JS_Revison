@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="buttonParent"></div>
+
+    <script>
+        //State -> part of app which changes and make our site dynamic.
+        const state = {
+            count: 0,
+        }
+
+        //State changes-> Now react will re render the new state on the basis of the component.
+        const countChange =()=>{
+            state.count++;
+            reRenderFunc();
+        }
+
+        //Re-rendering this is what react does. it takes the state and renders the state on screen on the basis of  the component.
+        const reRenderFunc =()=>{
+            document.querySelector("#buttonParent").innerHTML= "";
+            const elem = btnComponent(state.count);
+            document.querySelector("#buttonParent").appendChild(elem);
+        }
+        
+        //Component
+        const btnComponent=(count)=>{
+            let btnElem = document.createElement("button");
+            btnElem.innerText = `Counter ${count}`;
+            btnElem.setAttribute("onClick", `countChange()`);
+            return btnElem;
+        }
+
+        reRenderFunc()
+    </script>
+</body>
+</html>

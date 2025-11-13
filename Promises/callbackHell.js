@@ -41,3 +41,13 @@ promisedTimeout(1000).then(()=>{
 }).then(()=>{
     console.log("Runs after 5 sec")
 })
+
+setTimeout(()=>{
+console.log("After 1 sec");
+setTimeout(()=>{
+    console.log("After 2 sec");
+    setTimeout(()=>{
+        console.log("Called after 4 sec")
+    }, 4000)
+}, 2000)
+},1000)

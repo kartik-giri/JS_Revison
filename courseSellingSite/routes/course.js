@@ -27,7 +27,7 @@ courseRouter.post('/purchase', userAuthMiddleware, async (req, res) => {
 })
 
 //see all courses
-courseRouter.get('/preview', userAuthMiddleware, async (req, res) => {
+courseRouter.get('/preview', async (req, res) => {
     try{
     const allCourses = await courseModel.find({});
     res.json({
