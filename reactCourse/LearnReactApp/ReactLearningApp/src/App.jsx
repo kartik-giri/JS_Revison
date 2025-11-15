@@ -35,6 +35,7 @@ const Counter = () => {
       alert("clear the preivous effect")
     }
   },[count])
+
   const increaseHandler = () => {
     setCount(count + 1);
   };
@@ -80,3 +81,11 @@ const EffectLearn=()=>{
   )
 }
 export default App;
+
+/*
+So basicaaly the code inside the useEffect will run when the component is mounted and will be ignored at re-rendering of the component
+and the function retunred by useEffect function will run when component is UNMOUNTED and prevent useEffect from re-running
+And if we want to re-redner the useEffect if certain state changes then we have to add the dependicy state Than the useEffect will first clear and than call passed 
+function.
+
+*/
