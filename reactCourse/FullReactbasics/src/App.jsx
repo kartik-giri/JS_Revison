@@ -1,40 +1,41 @@
-const App= ()=>{
-  return (
-    <>
-    <div style={{backgroundColor:"#dfe6e9", height:"100vh", width:"100vw", display:"flex",flexDirection:"column",alignItems:"center" }}>
-      <div>
-         <PostComponent/>
-      </div>
-          <div>
-         <PostComponent/>
-      </div>
-    </div>
-    </>
-  )
-}
-export default App;
+import { useEffect, useState } from "react";
+import { PostComponent } from "./Post"
+import { Notification } from "./Notification";
+import { Todos } from "./Todos";
 
-const PostComponent = ()=>{
+const App = () => {
+  const [post, setPost] = useState([]);
   
+  //array of PostComponent
+  const postComponents = post.map((posts)=>{
+    //name, subtitle, time, image, description
+    return <PostComponent name={posts.name} subtitle={posts.subtitle} time={posts.time} image ={posts.image} description={posts.description} />
+  })
+  const addPost =()=>{
+    setPost([...post,{
+      name: "harkirat",
+      subtitle: "10000 followers",
+      time: "2m ago",
+      image: "https://appx-wsb-gcp-mcdn.akamai.net.in/subject/2023-01-17-0.17044360120951185.jpg",
+      description: "What to know how to win big? Check out how these folks won $6000 in bounties."
+    }])
+  }
+
+
   return (
     <>
-    <div style={{width:500,height:200, padding:10,margin:10, borderRadius:3, backgroundColor:"white"}}>
-      <div style={{display: "flex", justifyContent:"left"}}>
-        <img src={"https://media.istockphoto.com/id/931336618/vector/clock-vector-icon-isolated.jpg?s=612x612&w=0&k=20&c=I8EBJl8i6olqcrhAtKko74ydFEVbfCQ6s5Pbsx6vfas="} alt="ProfilePic"
-        style = {
-          {height: 40, width:40, paddingTop:9}
-        } />
-        <div style={{paddingLeft:8}} >
-          <p style={{fontSize:15}}>100X Devs</p>
-          <p style={{fontSize:12}}>1,023 Followers</p>
-          <p style={{fontSize:12}}>12m</p>
+         <Todos/>
+      <div style={{ background: "#dfe6e9", height: "100vh", }}>
+        <button onClick={addPost}>Add post</button>
+        <div style={{ display: "flex", justifyContent: "center", justifyContent:"space-around" }}>
+          <Notification/>
+          <div>
+            {postComponents}
+          </div>
         </div>
       </div>
-
-      <div>
-        <p>Wanna know how our devs are earning $3000 in bounties?</p>
-      </div>
-    </div>
     </>
   )
 }
+
+export default App;
