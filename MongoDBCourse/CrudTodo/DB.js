@@ -13,7 +13,7 @@ const usersSchema = new Schema({
 const todosSchema = new Schema({
     title: String,
     description: String,
-    id: ObjectId
+    id: {type:ObjectId, ref: users}
 })
 
 

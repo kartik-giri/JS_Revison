@@ -51,3 +51,14 @@ setTimeout(()=>{
     }, 4000)
 }, 2000)
 },1000)
+
+
+const pAsync =(ms)=>{
+    return new Promise((resolve)=>{
+        setTimeout(resolve,ms)
+    })
+}
+
+pAsync(1000).then(()=>{
+    console.log("This callback will run when resolve function will run!")
+})
