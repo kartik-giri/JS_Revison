@@ -94,7 +94,7 @@ const ClassEight = () => {
     let id = setInterval(() => {
       setCount((count) =>{
         console.log(count)
-          return count - 1;
+          return count - 1; //passing the change in a state to the setState function so that it can update the state ans react and trigger the re-rendnering.
       })
     }, 1000)
 
@@ -119,6 +119,7 @@ const ClassEight = () => {
 
 
 const LearnUseEffect=()=>{
+  //UseEffect value will persist across re-renders and will not reset to its previous value as like other vairables.
   const inputRef = useRef(null);
 
   const focusInput=()=>{
