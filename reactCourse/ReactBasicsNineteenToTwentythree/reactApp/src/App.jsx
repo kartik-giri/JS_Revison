@@ -1,4 +1,5 @@
 import { useContext, useState, createContext, } from "react";
+import Parent from "./Parent";
 
 
 //useCOntext serves as the container to data that we want to share from higher level component to loweer level component directly.
@@ -12,6 +13,7 @@ const BulbProvider =({children})=>{
     <BulbContext.Provider value={{plug:plug, setPlug:setPlug}}>
       {children}
     </BulbContext.Provider>
+    <Parent/>
     </>
   )
 }
