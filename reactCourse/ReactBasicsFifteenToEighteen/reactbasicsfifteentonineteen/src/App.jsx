@@ -123,7 +123,7 @@ const ClassEight = () => {
 
 
 const LearnUseEffect = () => {
-  //UseEffect value will persist across re-renders and will not reset to its previous value as like other vairables.
+  //UseRef value will persist across re-renders and will not reset to its previous value as like other vairables.
   const inputRef = useRef(null);
 
   const focusInput = () => {

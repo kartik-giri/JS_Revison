@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCountStore } from './store';
+import { useCountStore, useDataFetchStore } from './store';
 
 function Parent() {
   return (
@@ -7,6 +7,8 @@ function Parent() {
       <Increase />
       <Decrease />
       <Value />
+      <DataShow/>
+      <FetchBtn/>
     </>
   );
 }
@@ -17,13 +19,31 @@ function Increase() {
 }
 
 function Decrease() {
-  const decrease = useCountStore((state) => state.decrease);
+  const decrease = useCountStore((state)=>state.decrease);
   return <button onClick={decrease}>Decrease</button>;
 }
 
 function Value() {
   const count = useCountStore((state) => state.count);
   return <p>Count: {count}</p>;
+}
+
+const DataShow=()=>{
+  const resData = useDataFetchStore((state)=>state.resData)
+  return (
+    <>
+    <h1>{resData}</h1>
+    </>
+  )
+}
+
+const FetchBtn=()=>{
+  const fetchFunc = useDataFetchStore((state)=> state.fetchCall)
+  return(
+    <>
+    <button onClick={fetchFunc}>Get Data!</button>
+    </>
+  )
 }
 
 export default Parent;

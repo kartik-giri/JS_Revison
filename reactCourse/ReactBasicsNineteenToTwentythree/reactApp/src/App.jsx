@@ -6,6 +6,7 @@ import Parent from "./Parent";
 const BulbContext = createContext();
 
 //This compoenent takes application part and provides access of context values to all its decendants.
+//We have created wrapper on top of .provider component
 const BulbProvider =({children})=>{
    const [plug, setPlug] = useState(true); 
   return (
