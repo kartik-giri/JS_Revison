@@ -23,7 +23,7 @@ export const useDataFetchStore = create((set)=>({
 
     //Call set function to update the state now
     set({
-      resData: res.title,
+      resData: res.title
     })
   }
 }))

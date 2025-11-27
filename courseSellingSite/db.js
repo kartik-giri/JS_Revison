@@ -23,7 +23,7 @@ const courseSchema = new Schema({
     description: String,
     price: Number,
     imageUrl: String,
-    creatorId: objectId  //Admin Id cause only admin can create courses
+    creatorId: {type:objectId, ref:`admin`}  //Admin Id cause only admin can create courses
 })
 
 //Creating a separate purchase collection (join table) is the better, more scalable approach — especially when you need to store many-to-many relationships.
