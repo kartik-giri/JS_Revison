@@ -28,7 +28,7 @@ export const useDebounceGeneric = (value, delay)=>{
 
     useEffect(() => {
         const handler = setTimeout(() => {
-            setDebouncedValue(value);
+            setDebouncedValue(value); //delayed state value will be updated after certain time.
         }, delay);
 
         return () => {

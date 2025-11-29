@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 
+//For “old” we don’t really mean the “previous” value, but the value from the previous rendering.
 export const usePrev =(state)=>{
     const prevRef = useRef(0);
 
@@ -7,6 +8,31 @@ export const usePrev =(state)=>{
         prevRef.current= state;
     },[state])
     return prevRef.current
+}
+
+/*
+If NO → do nothing
+→ Return the same previous value as before
+→ This prevents the “glitch”
+
+Move the old value into previous
+Put the new value into target
+*/
+
+//This usePrev hook implementation takes: 
+//value:- present value of the state.
+//initial-> it will be null
+//From subscribed component.
+export const usePrevWithoutGlitch=(value, initial)=>{
+    //Reference var will store object wiith 2 values. target = curent state value , previous = initial value or prev state value. 
+    const ref = useRef({target: value, previous: initial})
+
+    if(ref.current.target !== value){
+        ref.current.previous = ref.current.target;
+        ref.current.target= value
+    }
+
+    return ref.current.previous
 }
 
 //React first returns and than Effect gets called after.
