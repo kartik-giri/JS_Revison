@@ -8,11 +8,11 @@
 
 import {create} from "zustand";
 
-export const useCountStore = create((set)=>({
-  count:0,
-  increase: ()=> set((state)=>({count: state.count+1})),
-  decrease: ()=> set((state)=> ({count: state.count-1}))
-}))
+// export const useCountStore = create((set)=>({
+//   count:0,
+//   increase: ()=> set((state)=>({count: state.count+1})),
+//   decrease: ()=> set((state)=> ({count: state.count-1}))
+// }))
 
 //Let's we want to do fetch call when user clicks the certain button.
 export const useDataFetchStore = create((set)=>({
@@ -26,6 +26,13 @@ export const useDataFetchStore = create((set)=>({
       resData: res.title
     })
   }
+}))
+
+
+export const useCountStore = create((set)=>({
+  count: 0,
+  increase: ()=> set((state)=>({count: state.count+1})),
+  decrease: ()=> set((state)=>({count: state.count-1}))
 }))
 
 

@@ -16,7 +16,7 @@ export const useOnline = () => {
     //navigator.onLine-> return true if user is online , false if user is offline.
     const [online, setOnline] = useState(navigator.onLine)
 
-    //Make the effect run when component mounts.
+    //Make the effect run when component mounts
 
     useEffect(() => {
         const handleOffline = () => {
