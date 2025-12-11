@@ -1,9 +1,12 @@
-import AuthPage from "./components/AuthPage";
+import AuthPage from "./Pages/AuthPage";
+import EmailPage from "./pages/EmailPage";
+
 
 const App = ()=>{
   return (
     <>
    <AuthPage/>
+   <EmailPage/>
     </>
   )
 }
