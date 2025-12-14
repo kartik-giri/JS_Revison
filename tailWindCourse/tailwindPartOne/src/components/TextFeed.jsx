@@ -1,26 +1,11 @@
-// components/TextFeed.jsx
-import { forwardRef } from "react";
-
-const TextFeed = forwardRef(
-  (
-    { value, onChange, handleInput, type = "text", placeholder, children },
-    ref
-  ) => {
+const TextFeed = ({ handleInput, type, children})=>{
     return (
-      <div className="flex justify-center mt-6">
-        <input
-          ref={ref}
-          type={type}
-          value={value ?? ""}                 // ← support controlled
-          onChange={onChange || handleInput}  // ← support both names
-          placeholder={placeholder || children}
-          className="w-80 h-10 px-4 rounded-lg bg-[#1e426d] text-white placeholder-[#5d7692] outline-none"
-          autoComplete="email"
-        />
-      </div>
-    );
-  }
-);
+        <>
+            <div className="flex justify-center">
+                <input type={type} onChange={handleInput} placeholder={children} className="outline-0 m-3 h-9 w-50 rounded-md p-3 bg-[#1e426d] text-xs font-light text-[#5d7692] placeholder-{#5d7692} " />
+            </div>
+        </>
+    )
+}
 
-TextFeed.displayName = "TextFeed";
 export default TextFeed;

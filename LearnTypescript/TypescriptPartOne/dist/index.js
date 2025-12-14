@@ -27,3 +27,13 @@ const delayFun = () => {
     console.log(`Runs after 1 sec`);
 };
 delayCall(delayFun);
+const isLegal = (userObj) => {
+    return (userObj.age > 18 ? true : false);
+};
+const userObj = {
+    userName: "kartik",
+    age: 23
+};
+console.log(`Interface asign type to object to check if user is +18 ${isLegal(userObj)}`);
+
+

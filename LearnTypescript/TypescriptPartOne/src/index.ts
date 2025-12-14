@@ -37,3 +37,64 @@ const delayFun = ()=>{
 }
 
 delayCall(delayFun);
+
+
+//Interface
+
+//Program -1 Create a function isLegal that returns true or false if a user is above 18. It takes a user as an input.
+
+interface userType  {
+    userName: string,
+    age: number
+}
+
+const isLegal = (userObj: userType):boolean=>{
+    return (userObj.age>18?true:false)
+}
+
+const userObj:userType = {
+    userName:"kartik",
+    age:23
+}
+console.log(`Interface asign type to object to check if user is +18 ${isLegal(userObj)}`);
+
+
+//Types
+//Very similar to interfaces , types let you aggregate data together.
+
+//Union
+
+type numberOrString = number | string;
+
+const sum = (a: numberOrString, b: numberOrString): numberOrString=>{
+    /*
+    Problem:
+    + behaves differently based on runtime types
+    TypeScript cannot guarantee what will happen
+    Thats why ts block a+b 
+    */
+    return (a)
+}
+
+
+/*
+Intersection
+What if you want to create a type that has every property of multiple types/ interfaces
+*/
+type Employee = {
+  name: string;
+  startDate: Date;
+};
+
+type Manager = {
+  name: string;
+  department: string;
+};
+
+type TeamLead = Employee & Manager;
+
+const teamLead: TeamLead = {
+  name: "harkirat",
+  startDate: new Date(),
+  department: "Software developer"
+};
