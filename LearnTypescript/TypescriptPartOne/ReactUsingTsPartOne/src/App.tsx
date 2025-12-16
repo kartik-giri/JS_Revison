@@ -1,5 +1,5 @@
-import type { todoType } from "./interfaces/todosInterface";
-import type { childrenProps } from "./interfaces/todosInterface";
+import type { todoType } from "./interfaces/todosInterface.js";
+import type { childrenProps } from "./interfaces/todosInterface.js";
 /*
 type -
 This tells TypeScript:
