@@ -1,6 +1,7 @@
 "use strict";
-//Program -1 Given an array of positive integers as input, return the maximum value in the array
+// We can create array of any primitive type or any complex type like interface or Type
 Object.defineProperty(exports, "__esModule", { value: true });
+//Program -1 Given an array of positive integers as input, return the maximum value in the array
 const findMax = (arr) => {
     return Math.max(...arr);
 };

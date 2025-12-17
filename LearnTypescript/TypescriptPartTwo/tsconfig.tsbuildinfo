@@ -1,1 +1,1 @@
-{"root":["./src/array.ts","./src/typescode.ts","./src/abstractclass.ts","./src/index.ts","./src/peopleclass.ts"],"version":"5.9.3"}
+{"root":["./src/array.ts","./src/typescode.ts","./src/abstractclass.ts","./src/enumscode.ts","./src/generic.ts","./src/index.ts","./src/peopleclass.ts"],"version":"5.9.3"}
