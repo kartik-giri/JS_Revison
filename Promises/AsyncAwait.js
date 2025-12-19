@@ -74,7 +74,7 @@ let funcReadFilePromise = ()=>{
   })
 }
 
-let asyncReadFile = async()=>{
+let asyncReadFile = async ()=>{
   try{
     let readFileResult = await funcReadFilePromise();
     console.log("File data is:", readFileResult);
