@@ -18,7 +18,7 @@ const adminSchema = new Schema({
     lastName: String
 })
 
-const courseSchema = new Schema({
+const courseSchema =  new Schema({
     title: String,
     description: String,
     price: Number,
