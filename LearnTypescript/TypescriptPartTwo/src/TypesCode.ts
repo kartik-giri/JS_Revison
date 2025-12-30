@@ -52,3 +52,5 @@ const employee:EthicalHacker = {
     age:26,
     organisation:"Kaaam tmaam"
 }
+
+// const age : string & number=12

@@ -16,4 +16,4 @@ const result = returnElem<number>([12,23,34]);
 console.log(`First element of arr is ${result}`);
 
 const stringresult = returnElem<string>(["kartik", "ram", "shyam"]);
-console.log(`First element of arr is ${stringresult}`);
+console.log(`First element of arr is ${stringresult}`)
