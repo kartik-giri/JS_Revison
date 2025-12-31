@@ -1,0 +1,3 @@
+1. .d.ts -> this is the declaration file extension which contains all the Types for the library. for eg @types/express
+            contains types for express lib. type should be instal as dev dependecies cause we are using only in development.
+2. we should never use @ts-ignore instead fix if any codebase us this.
