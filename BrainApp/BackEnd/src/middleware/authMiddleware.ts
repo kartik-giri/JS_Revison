@@ -15,7 +15,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
         } else {
             //“ as means Trust me — this value is an object that has all standard JWT fields AND an id property. means intersection”
             //to implement the type checking.
-                const verifyJwt = jwt.verify(jwtToken, envParse.JWT_SECRET) as JwtPayload &{id: ObjectIdQueryTypeCasting} ;
+                const verifyJwt = jwt.verify(jwtToken, envParse.JWT_SECRET) as JwtPayload &{id: string} ;
                 if(!verifyJwt){
                    res.status(400).json({
                     message:`Error occured while verifying jwt`

@@ -3,7 +3,7 @@ import type { ObjectId, ObjectIdQueryTypeCasting } from "mongoose";
 declare global{
     namespace Express{
         interface Request{
-            userId?: ObjectIdQueryTypeCasting
+            userId?: string  //the type of userId is scrting not object
         }
     }
 }

@@ -6,12 +6,16 @@ import jwt from "jsonwebtoken";
 import z from "zod";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-import { contentModel, userModel } from "./db.js";
+import { contentModel, linkModel, userModel } from "./db.js";
 import envParse from "./config.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
+import crypto from "crypto";
 const app = express();
 app.use(express.json());
 mongoose.connect("mongodb+srv://kartikgiri1t30_db_user:tmOE0xWOLmKWtM0i@cluster0.ontnrw9.mongodb.net/brainly-DB");
+const genrateLinkHash = () => {
+    return crypto.randomBytes(16).toString("hex");
+};
 app.post("/api/v1/sign-up", async (req, res) => {
     const userInput = z.object({
         userName: z.string().min(3).max(20),
@@ -117,7 +121,7 @@ app.post("/api/v1/content", authMiddleware, async (req, res) => {
             type: type,
             title: title,
             tags: tags,
-            userId: req.userId
+            userId: new mongoose.Types.ObjectId(req.userId)
         });
         res.status(200).json({
             message: `content is added`
@@ -129,13 +133,121 @@ app.post("/api/v1/content", authMiddleware, async (req, res) => {
         });
     }
 });
-app.delete("/api/v1/content", async (req, res) => {
+app.delete("/api/v1/content", authMiddleware, async (req, res) => {
+    try {
+        await contentModel.deleteOne({
+            //we need to first verify content id with zod in production.
+            _id: new mongoose.Types.ObjectId(req.body.id),
+            //Type casting string id to the objectId.
+            userId: new mongoose.Types.ObjectId(req.userId),
+        });
+        res.status(200).json({
+            message: `Content delted succesfully`
+        });
+    }
+    catch (err) {
+        res.status(400).json({
+            message: `Error occured while deleting content`
+        });
+    }
 });
-app.get("/api/v1/content", async (req, res) => {
+app.get("/api/v1/content", authMiddleware, async (req, res) => {
+    try {
+        const contentList = await contentModel.find({
+            userId: new mongoose.Types.ObjectId(req.userId),
+        }).populate("userId", "userName");
+        res.status(200).json({
+            message: contentList
+        });
+    }
+    catch (err) {
+        res.status(400).json({
+            message: `Error occured while fetching user contents`
+        });
+    }
 });
-app.post("/api/v1/brain/share", async (req, res) => {
+app.post("/api/v1/brain/share", authMiddleware, async (req, res) => {
+    const shareSchema = z.object({
+        share: z.boolean(),
+    });
+    const parse = shareSchema.safeParse(req.body);
+    if (!parse.success) {
+        res.status(411).json({
+            message: `Error occured in share schema checking`
+        });
+        return;
+    }
+    try {
+        const shareinput = parse.data.share;
+        if (shareinput == false) {
+            await linkModel.deleteOne({
+                userId: new mongoose.Types.ObjectId(req.userId),
+            });
+        }
+        else {
+            const findShareLink = await linkModel.findOne({
+                userId: new mongoose.Types.ObjectId(req.userId),
+            });
+            if (findShareLink) {
+                res.status(200).json({
+                    link: `http://localhost:3000/api/v1/brain/${findShareLink.hash}`,
+                });
+            }
+            else {
+                const hash = genrateLinkHash();
+                await linkModel.create({
+                    hash: hash,
+                    userId: new mongoose.Types.ObjectId(req.userId)
+                });
+                res.status(200).json({
+                    link: `http://localhost:3000/api/v1/brain/${hash}`,
+                });
+            }
+        }
+    }
+    catch (err) {
+        res.status(400).json({
+            message: `Error occured in genreating brain share link`
+        });
+    }
 });
 app.get("/api/v1/brain/:shareLink", async (req, res) => {
+    const hash = req.params.shareLink;
+    try {
+        const findShareSchema = await linkModel.findOne({
+            hash: hash,
+        });
+        if (findShareSchema) {
+            const userId = findShareSchema.userId;
+            if (!userId) {
+                res.status(411).json({
+                    message: `Error in finding userId of linkShema`
+                });
+                return;
+            }
+            const fetchContent = await contentModel.find({
+                userId: userId
+            }).populate("userId", "userName");
+            // const structureContent = fetchContent.map((elem)=>{
+            //     return ({
+            //         userName: elem.,
+            //     })
+            // })
+            res.status(200).json({
+                message: fetchContent
+            });
+        }
+        else {
+            res.status(400).json({
+                message: `Error occured in fetching content from shareLink`
+            });
+        }
+    }
+    catch (err) {
+        res.status(400).json({
+            message: `Error occured in fetching content from shareLink`
+        });
+    }
 });
 app.listen(3000, () => {
     console.log("Server is listening at port 3000");

@@ -1,3 +1,13 @@
 1. .d.ts -> this is the declaration file extension which contains all the Types for the library. for eg @types/express
             contains types for express lib. type should be instal as dev dependecies cause we are using only in development.
 2. we should never use @ts-ignore instead fix if any codebase us this.
+
+
+
+IMAGINE YOU WANT TO MAKE YOUR PERSONAL DATA SHARE TO ANYONE.
+1. For this we can generate random hash save it in db/schema with userId.
+2. we are anot sharing username directly cause of security reasons and through hash server will get userId and than 
+   thorugh userId server can fetch user content and return to anyonw who have the access to that route.
+
+3. to make content accesble to nayone who ahve that hash.
+4. we will create endpoint which will userId from hash and than fetcha nd return the user brain data.
