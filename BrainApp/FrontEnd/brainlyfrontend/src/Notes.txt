@@ -11,4 +11,12 @@ ADDING NEW COLOR UTILITY CLASSES:
                                 }
 
 HOW TO ADD TERNARNY OPERATOR IN TAILWIND:
-1. first tailwind code is {``} and than we can add js code like we add in template literal and use tailwind classes in strings.
+1. first tailwind code is {``} and than we can add js code like we add in template literal and use tailwind classes in strings.\
+
+HOW TO CREATE FONT-END LIBS LIKE SHADCN?
+1. Create components easy.
+2. publish it to npm.
+3. create cli for lib.
+4. ceate website for lib
+
+Alway import types and varaibels/function spearately is they are in same file
