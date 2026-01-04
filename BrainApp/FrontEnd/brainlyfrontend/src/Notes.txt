@@ -1,0 +1,14 @@
+1. create react app using nom create vite@latest
+2. Use simple TS version
+3. Install tailwind package 
+4. import and export tailwind from vite config file.
+5. And import tailwind in main/Index.css file from vite configs @import "tailwindcss";
+
+ADDING NEW COLOR UTILITY CLASSES:
+1.we can in css file where we have imported tailwind.
+2. Uses @theme like this @theme {
+                                   --color-name: colour_code
+                                }
+
+HOW TO ADD TERNARNY OPERATOR IN TAILWIND:
+1. first tailwind code is {``} and than we can add js code like we add in template literal and use tailwind classes in strings.
