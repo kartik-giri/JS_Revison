@@ -18,9 +18,9 @@ const variantStyle = {
 }
 
 const sizeStyle = {
-    sm:"py-1 px-4",
-    md:"py-1 px-6",
-    lg:"py-2 pl-6 pr-3"
+    sm:"py-0 px-1  text-sm",
+    md:"py-1 px-6 text-md",
+    lg:"py-2 pl-6 pr-3 text-lg"
 }
 export const Button = (props: ButtonProps) => {
   return (
