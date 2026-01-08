@@ -27,7 +27,7 @@ const tagSchema = new Schema({
 
 const linkSchema = new Schema({
     hash:{type:String, required:true},
-    userId:{type:ObjectId, ref:`users`}
+    userId:{type:ObjectId, ref:`users`, unique:true}
 })
 
 export const userModel = mongoose.model(`users`, userSchema);
