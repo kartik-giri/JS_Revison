@@ -66,6 +66,7 @@ app.post("/api/v1/sign-in", async (req, res) => {
             res.status(400).json({
                 message: `${userName} does not exist`
             });
+            return;
         }
         else {
             const validPassword = await bcrypt.compare(password, userExist.password);
@@ -83,7 +84,7 @@ app.post("/api/v1/sign-in", async (req, res) => {
             }
         }
     }
-    catch (e) {
+    catch (err) {
         res.status(400).json({
             message: `Error while signing in.`
         });
@@ -183,6 +184,9 @@ app.post("/api/v1/brain/share", authMiddleware, async (req, res) => {
             await linkModel.deleteOne({
                 userId: new mongoose.Types.ObjectId(req.userId),
             });
+            res.status(400).json({
+                message: `Link is removed`
+            });
         }
         else {
             const findShareLink = await linkModel.findOne({
@@ -225,6 +229,15 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
                 });
                 return;
             }
+            const findUser = await userModel.findOne({
+                _id: userId
+            });
+            if (!findUser) {
+                res.status(411).json({
+                    message: `User doesn't exist with specifies userId while sharing content`
+                });
+                return;
+            }
             const fetchContent = await contentModel.find({
                 userId: userId
             }).populate("userId", "userName");
@@ -234,7 +247,8 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
             //     })
             // })
             res.status(200).json({
-                message: fetchContent
+                userName: findUser.userName,
+                content: fetchContent
             });
         }
         else {
@@ -252,4 +266,8 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
 app.listen(3000, () => {
     console.log("Server is listening at port 3000");
 });
+/*
+ "userName": "kartik",
+"password": "kg121G121G"
+*/ 
 //# sourceMappingURL=index.js.map

@@ -12,6 +12,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
             res.status(400).json({
                 message: `Error occured in auth`
             })
+            return
         } else {
             //“ as means Trust me — this value is an object that has all standard JWT fields AND an id property. means intersection”
             //to implement the type checking.
@@ -20,6 +21,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
                    res.status(400).json({
                     message:`Error occured while verifying jwt`
                    }) 
+                   return
                 }else{
                 req.userId = verifyJwt.id;
                 next();

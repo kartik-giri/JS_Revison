@@ -81,6 +81,7 @@ app.post("/api/v1/sign-in", async (req, res) => {
             res.status(400).json({
                 message: `${userName} does not exist`
             })
+            return
         } else {
             const validPassword = await bcrypt.compare(password, userExist.password);
             if (!validPassword) {
@@ -96,7 +97,7 @@ app.post("/api/v1/sign-in", async (req, res) => {
             }
         }
 
-    } catch (e) {
+    } catch (err) {
         res.status(400).json({
             message: `Error while signing in.`
         })
@@ -218,6 +219,7 @@ app.post("/api/v1/brain/share", authMiddleware, async (req, res) => {
                 res.status(200).json({
                     link: `http://localhost:3000/api/v1/brain/${findShareLink.hash}`,
                 })
+                return
             } else {
                 const hash = genrateLinkHash();
 
@@ -297,3 +299,16 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
 app.listen(3000, () => {
     console.log("Server is listening at port 3000")
 })
+
+/*
+ "userName": "kartik",
+"password": "kg121G121G"
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NjIzOTYxNjgxYzI4ZmE2YmJmZjdlNCIsImlhdCI6MTc2ODA0NTE0NX0.RH5y12O57XCqibKAQyhIk4jqCT-J6zewCgoR7H3ya34
+
+{
+    "link": "https://x.com/Indianinfoguide/status/2009900808176112090?s=20",
+    "type": "article",
+    "title": "Modi asks to build real AI products."
+}
+*/
