@@ -1,6 +1,5 @@
 //Create a gneric button component.
 
-import type { ReactElement } from "react";
 
 //Type for button props type.
 export interface ButtonProps {
@@ -9,7 +8,7 @@ export interface ButtonProps {
   text: string;
   startIcon?: any; //ReactElement is type means other react component,
   endIcon?: any;
-  onclick: () => void;
+  onclick?: () => void;
 }
 
 const variantStyle = {
