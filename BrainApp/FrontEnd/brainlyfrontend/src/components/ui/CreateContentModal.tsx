@@ -1,7 +1,8 @@
 import { CloseIcon } from "../../Icons/CloseIcon";
 import { Button } from "./Button";
+import { Input } from "./Input";
 
-interface ModalProps {}
+// interface ModalProps {}
 
 const CreateContentModal = ({ open, onClose }: {open:boolean, onClose:()=>void}) => {
   return (
@@ -30,12 +31,4 @@ const CreateContentModal = ({ open, onClose }: {open:boolean, onClose:()=>void})
 
 export default CreateContentModal;
 
-const Input = ({placeholder,onchange}:{placeholder: string, onchange:()=>void})=>{
-    return (
-        <>
-        <div>
-            <input type="text" placeholder={placeholder} className="px-4 py-2 w-100 border rounded-sm my-2 border-slate-200" onChange={onchange} />
-        </div>
-        </>
-    )
-}
+

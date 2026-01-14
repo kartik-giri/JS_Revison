@@ -9,7 +9,7 @@ interface CardProps {
 const Card = (props: CardProps) => {
   return (
     <>
-      <div className="bg-white rounded-md  p-4 border-2 border-gray-100 max-w-80 min-w-80 break-inside-avoid mb-4">
+      <div className="bg-white rounded-md  p-4 border-2 border-gray-200 max-w-80 min-w-80 break-inside-avoid mb-4">
         <div className="flex justify-between">
           <div className="inline-flex items-center gap-2">
             <ShareIcon size="md" />
