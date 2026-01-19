@@ -27,7 +27,7 @@ const Card = (props: CardProps) => {
           {props.type === "youtube" ? (
             <iframe
               className="w-full"
-              src={props.link.replace("youtu.be", "youtube.com/embed")}
+              src={props.link.replace("youtu.be", "youtube.com/embed").replace("www.youtube.com/live", "youtube.com/embed")}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"

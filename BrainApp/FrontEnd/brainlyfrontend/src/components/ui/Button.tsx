@@ -9,6 +9,7 @@ export interface ButtonProps {
   startIcon?: any; //ReactElement is type means other react component,
   endIcon?: any;
   onclick?: () => void;
+  loading?:boolean
 }
 
 const variantStyle = {
@@ -25,8 +26,9 @@ export const Button = (props: ButtonProps) => {
   return (
     <>
       <button
-        className={`text-center inline-flex items-center gap-2 cursor-pointer border-none rounded-md ${variantStyle[props.variant]} ${sizeStyle[props.size]}   `}
+        className={`text-center inline-flex items-center gap-2 cursor-pointer border-none rounded-md ${variantStyle[props.variant]} ${sizeStyle[props.size]} ${props.loading?`opacity-60`:""}   `}
         onClick={props.onclick}
+        disabled={props.loading}
       > 
         <span >{props.startIcon}</span>
         <span >{props.text}</span>

@@ -10,8 +10,10 @@ import { contentModel, linkModel, userModel } from "./db.js";
 import envParse from "./config.js";
 import { authMiddleware } from "./middleware/authMiddleware.js";
 import crypto from "crypto";
+import cors from "cors";
 const app = express();
 app.use(express.json());
+app.use(cors());
 mongoose.connect("mongodb+srv://kartikgiri1t30_db_user:tmOE0xWOLmKWtM0i@cluster0.ontnrw9.mongodb.net/brainly-DB");
 const genrateLinkHash = () => {
     return crypto.randomBytes(16).toString("hex");
@@ -98,7 +100,7 @@ app.post("/api/v1/sign-in", async (req, res) => {
 app.post("/api/v1/content", authMiddleware, async (req, res) => {
     const contentInput = z.object({
         link: z.string().min(5),
-        type: z.enum(["image", "video", "article", "audio"]),
+        type: z.enum(["image", "youtube", "twitter", "audio"]),
         title: z.string().min(3)
         // tags:
     });

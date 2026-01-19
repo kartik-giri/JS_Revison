@@ -9,9 +9,22 @@ import { SideButton } from "../components/ui/SideButton";
 import { XIcon } from "../Icons/XIcon";
 import { VideoIcon } from "../Icons/VidoeIcon";
 import { BrainIcon } from "../Icons/BrainIcon";
+import { useContent } from "../hooks/useContent";
 
 const DashBoard = () => {
   const [modaLOpen, setModal] = useState(false);
+  const content = useContent();
+  console.log(content)
+
+  // const contentList = content.map((elem)=>{
+  //   return (
+  //     <Card
+  //             link= {elem.link}
+  //             title="Modi tweet"
+  //             type="twitter"
+  //           />
+  //   )
+  // })
 
   let sideIconsArr = [
     <SideButton text="Tweets" Icon={<XIcon size="md"/>} />,
@@ -55,66 +68,16 @@ const DashBoard = () => {
 
           {/* <div className=" grid md:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1"> */}
           <div className="columns-1 sm:columns-2 md:columns-2 md:gap-4 lg:columns-3 lg:gap-8 mt-8 mr-8">
-            <Card
-              link="https://twitter.com/Indianinfoguide/status/2009959060024746266?s=20"
-              title="Modi tweet"
-              type="twitter"
+
+            {content.map(({link,title, type})=>{
+              return (
+                  <Card
+              link={link}
+              title={title}
+              type={type}
             />
-            <Card
-              link="https://youtu.be/c6SzMmGEPlM?si=I3nkgyFQWPZb_d22"
-              title="Harkirat video"
-              type="youtube"
-            />
-            <Card
-              link="https://x.com/PTI_News/status/2010045565451809096?s=20"
-              title="Dog Tweet"
-              type="twitter"
-            />
-            <Card
-              link="https://twitter.com/Indianinfoguide/status/2009959060024746266?s=20"
-              title="Modi tweet"
-              type="twitter"
-            />
-            <Card
-              link="https://youtu.be/c6SzMmGEPlM?si=I3nkgyFQWPZb_d22"
-              title="Harkirat video"
-              type="youtube"
-            />
-            <Card
-              link="https://x.com/PTI_News/status/2010045565451809096?s=20"
-              title="Dog Tweet"
-              type="twitter"
-            />
-            <Card
-              link="https://twitter.com/Indianinfoguide/status/2009959060024746266?s=20"
-              title="Modi tweet"
-              type="twitter"
-            />
-            <Card
-              link="https://youtu.be/c6SzMmGEPlM?si=I3nkgyFQWPZb_d22"
-              title="Harkirat video"
-              type="youtube"
-            />
-            <Card
-              link="https://x.com/PTI_News/status/2010045565451809096?s=20"
-              title="Dog Tweet"
-              type="twitter"
-            />
-            <Card
-              link="https://twitter.com/Indianinfoguide/status/2009959060024746266?s=20"
-              title="Modi tweet"
-              type="twitter"
-            />
-            <Card
-              link="https://youtu.be/c6SzMmGEPlM?si=I3nkgyFQWPZb_d22"
-              title="Harkirat video"
-              type="youtube"
-            />
-            <Card
-              link="https://x.com/PTI_News/status/2010045565451809096?s=20"
-              title="Dog Tweet"
-              type="twitter"
-            />
+              )
+            })}
           </div>
         </div>
       </div>

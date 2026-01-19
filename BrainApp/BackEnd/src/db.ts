@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const ObjectId = mongoose.Types.ObjectId;
 
-const contentTypes = ["image", "video", "article", "audio"];
+const contentTypes = ["image", "youtube", "twitter", "audio"];
 
 const userSchema = new Schema({
     userName: {type:String, required:true, unique:true},

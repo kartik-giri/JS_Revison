@@ -6,6 +6,11 @@ declare global{
             userId?: string  //the type of userId is scrting not object
         }
     }
+    // namespace cors{
+    //     interface cors{
+    //         domain:string
+    //     }
+    // }
 }
 
 export {}
