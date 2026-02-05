@@ -3,7 +3,7 @@ import { Button } from "../components/ui/Button";
 import { PlusIcon } from "../Icons/PlusIcon";
 import { ShareIcon } from "../Icons/ShareIcon";
 import CreateContentModal from "../components/ui/CreateContentModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SideBar } from "../components/ui/SideBar";
 import { SideButton } from "../components/ui/SideButton";
 import { XIcon } from "../Icons/XIcon";
@@ -13,9 +13,12 @@ import { useContent } from "../hooks/useContent";
 
 const DashBoard = () => {
   const [modaLOpen, setModal] = useState(false);
-  const content = useContent();
+  const {content, getContent} = useContent();
   console.log(content)
 
+  useEffect(()=>{
+    getContent()
+  }, [modaLOpen])
   // const contentList = content.map((elem)=>{
   //   return (
   //     <Card

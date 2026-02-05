@@ -42,7 +42,9 @@ const CreateContentModal = ({ open, onClose }: {open:boolean, onClose:()=>void})
       }
     }
   )
+    
     alert(response.data.message)
+    onClose();
   }
   return (
     <>

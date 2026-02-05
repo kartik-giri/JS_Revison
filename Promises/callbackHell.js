@@ -62,3 +62,37 @@ const pAsync =(ms)=>{
 pAsync(1000).then(()=>{
     console.log("This callback will run when resolve function will run!")
 })
+
+/*
+Q: Write code that
+logs hi after 1 second
+logs hello 3 seconds after step 1
+logs hello there 5 seconds after step 2
+
+*/
+
+const greetFunc = (greeting, wait)=>{
+    return new Promise((resolve)=>{
+        setTimeout(()=>{
+            console.log(greeting);
+            resolve();
+        },wait)
+    })
+}
+
+greetFunc("hi",1000).then(()=>{
+    return greetFunc("hello",3000)
+}).then(()=>{
+    return greetFunc("hello", 5000)
+}).then(()=>{
+    
+})
+
+//Using async,await
+
+const printGreeting = async()=>{
+    await greetFunc("hi",10000);
+    await greetFunc("hello", 10000)
+}
+
+printGreeting()
