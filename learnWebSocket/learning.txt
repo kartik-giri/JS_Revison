@@ -1,0 +1,5 @@
+1. Websocket is used for creating persistent(Connection doesn't closed after server response) coneent between
+ client and server
+2. Connection is duplex communication on a single TCP connection.
+
+3. Websocket is used for real time conversation between server and the client.
