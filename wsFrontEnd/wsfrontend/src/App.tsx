@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
+//On Client/Browsers websocket in natively supported.
 const App = ()=>{
   const [socket, setSocket] = useState();
   //@ts-ignore
