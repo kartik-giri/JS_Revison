@@ -26,19 +26,18 @@ wss.on("connection", (socket) => {
                 });
             }
         }
-        //Handles disconnection
-        socket.on("close", () => {
-            let roomId = socket.roomId;
-            if (roomId) {
-                allSocket.get(roomId)?.delete(socket);
-            }
-            else {
-                return;
-            }
-            if (allSocket.get(roomId)?.size === 0) {
-                allSocket.delete(roomId);
-            }
-            console.log(`Total number of sockets: ${allSocket.get(roomId)?.size}`);
-        });
+    });
+    socket.on("close", () => {
+        let roomId = socket.roomId;
+        if (roomId) {
+            allSocket.get(roomId)?.delete(socket);
+        }
+        else {
+            return;
+        }
+        if (allSocket.get(roomId)?.size === 0) {
+            allSocket.delete(roomId);
+        }
+        console.log(`Total number of sockets: ${allSocket.get(roomId)?.size}`);
     });
 });
