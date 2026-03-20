@@ -45,7 +45,7 @@ const App = () => {
 };
 
 const ProductList =({products})=>{
-  return(
+  return (
     <ul style={{backgroundColor:"lightGrey", width:"30vw", borderRadius:10, padding:10, listStyle:"none"}}>
       {products.map((product)=>{
         return <li key={product.id}>
