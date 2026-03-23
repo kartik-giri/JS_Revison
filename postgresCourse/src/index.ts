@@ -11,7 +11,7 @@ const pgClient = new Client({
    }
 });
 
-const main= async()=>{
+const main = async()=>{
     await pgClient.connect();
 
     // await pgClient.query("CREATE TABLE todo(id SERIAL PRIMARY KEY, title VARCHAR(200) NOT NULL, description VARCHAR(800) NOT NULL, done BOOLEAN )");
