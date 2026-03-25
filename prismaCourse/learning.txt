@@ -1,0 +1,19 @@
+1. npm install prisma.
+2. npx prisma init -> initialize prisma project with its files
+
+npm install typescript tsx @types/node --save-dev
+tsx-> allow us to run ts file directly in devlopment.
+@types.node -> prodvde typef or node 
+--save-dev -> only dev dependecy
+
+2️⃣ @types/pg
+This installs TypeScript types for pg (the PostgreSQL driver).
+
+npm install @prisma/client @prisma/adapter-pg pg dotenv
+
+prisma - The Prisma CLI for running commands like prisma init, prisma migrate, and prisma generate
+@prisma/client - The Prisma Client library for querying your database
+@prisma/adapter-pg - The node-postgres driver adapter that connects Prisma Client to your database like postgress
+pg - The node-postgres database driver
+@types/pg - TypeScript type definitions for node-postgres
+dotenv - Loads environment variables from your .env file

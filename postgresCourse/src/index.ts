@@ -19,7 +19,7 @@ const app = express();
 
 app.use(express.json());
 
-app.post("/sing-up", async (request, response)=>{
+app.post("/sign-up", async (request, response)=>{
     let userName = request.body.userName;
     let email = request.body.email;
     let password = request.body.password;

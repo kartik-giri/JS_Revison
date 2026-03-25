@@ -1,0 +1,9 @@
+//This file defines your database structure + Prisma client generation in Prisma ORM.
+
+generator client {
+  provider = "prisma-client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
