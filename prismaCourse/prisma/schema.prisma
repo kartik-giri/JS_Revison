@@ -2,8 +2,29 @@
 
 generator client {
   provider = "prisma-client"
+  output   = "../generated/prisma" //destinatopn of client
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql" //which database?
+}
+
+//Users schema
+
+model Users {
+  id Int @default(autoincrement()) @id
+  userName String @unique
+  email String @unique
+  password String
+  todo todos[] //relationship onw user can have multiple todos
+  
+}
+
+model todos {
+  id Int @default(autoincrement()) @id
+  title String @unique
+  description String @unique
+  done Boolean
+  userId Int
+  user Users @relation(fields: [userId], references: [id]) //creating reference to users table id
 }

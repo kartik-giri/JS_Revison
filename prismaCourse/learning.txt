@@ -3,7 +3,7 @@
 
 npm install typescript tsx @types/node --save-dev
 tsx-> allow us to run ts file directly in devlopment.
-@types.node -> prodvde typef or node 
+@types.node -> prodvde type for node 
 --save-dev -> only dev dependecy
 
 2️⃣ @types/pg
@@ -17,3 +17,14 @@ prisma - The Prisma CLI for running commands like prisma init, prisma migrate, a
 pg - The node-postgres database driver
 @types/pg - TypeScript type definitions for node-postgres
 dotenv - Loads environment variables from your .env file
+
+
+Migration -> npx prisma migrate dev --name init 
+Converts prisma in to sql query and run it on database
+
+Prisma Client is a generated JavaScript/TypeScript library that lets you talk to your database using code instead of SQL.
+It is created from prisma.schema
+npx prisma generate -> command to generate client.
+
+
+Now that you have all the dependencies installed, you can instantiate Prisma Client. You need to pass an instance of the Prisma ORM driver adapter adapter to the PrismaClient constructor:
