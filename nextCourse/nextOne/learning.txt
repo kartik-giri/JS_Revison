@@ -1,0 +1,4 @@
+1. npx create-next-app@latest my-app --yes -> to bootstrap next project.
+2. npm run dev -> start dev server.
+
+3. In next js ther is file based routing means every pages.tsx in folders are served.
