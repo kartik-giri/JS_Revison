@@ -1,0 +1,15 @@
+1. bun init package-name --> to initialize project just like node init -y
+2. bun is already come comaptible with TS unline js where we need to install and init ts and configure it.
+
+3. index.ts -> This is your main file where Bun starts executing code.
+4. package.json -> contains the metadata about package and the external dependencies installed.
+5. bun.lock -> jus like package.lock.json this files locks the exact version of dependencies. so that all contributors install same external packages.
+6. tsconfig.json-> the configuration file for TS created while initializing TS project npx init --tsc.
+
+7. bun build ./src/index.ts \
+  --outdir dist \
+  --target node \
+  --minify 
+compiles ts files into one smaller js files compaitble with both node and bun
+
+8. imports exports works same as es6 modules
