@@ -1,0 +1,40 @@
+1. bun create next-app@latest -> to create next app using bun
+2. Folders sructure is similar to node nextjs project but just lock file name is different as we alreday know.
+
+3. loading.tsx -> is the file where next js fallbacks if the original UI/page is awaiting for request. and than page content will be returned in html by nextjs
+
+4. The / makes it an absolute path from root, which works both:
+  const data = await fetch("/api/v1/users/details");
+in development
+in production
+
+5. FE and BE both on same server make request response cycle very fast.
+
+6. Link tag in next is similar to <a> tag it lets mover from one link to another link.
+<Link href={"/signin"}>User sign in</Link>. -> when user click /signin path is open -> and than assciated page with signin folder is render
+-> making links accessible to users in short.
+
+CONNECTING DATABASE WITH nextjs
+1. Get database instance
+2. Install prisma bun add prisma
+bun add prisma tsx @types/pg --dev
+bun add @prisma/client @prisma/adapter-pg dotenv pg
+bunx --bun prisma init --output ../app/generated/prisma
+
+3. Add dotenv to prisma.config.ts -> import "dotenv/config"; 
+4. add models/schema in schema.prims file
+5. bunx prisma migrate dev --name init 
+This:
+creates DB tables
+
+6. Then gernate prisma client from schema.
+bunx prisma generate 
+
+7. create lib/prisma.ts where we will create singelton file.
+which coneect client with db and export it.
+
+
+//Use router hook
+1. this hooks is similar to naivgate hook in react it opens cerain route which is specified.
+import { useRouter } from "next/navigation";
+router.push("/route") -> this route will open and then than route specified page will render.

@@ -1,4 +1,0 @@
-1. bun create next-app@latest -> to create next app using bun
-2. Folders sructure is similar to node nextjs project but just lock file name is different as we alreday know.
-
-3. loading.tsx -> is the file where next js fallbacks if the original UI is awaiting.
