@@ -2,3 +2,7 @@
 2. npm run dev -> start dev server.
 
 3. In next js ther is file based routing means every pages.tsx in folders are served.
+
+4. Hydration is the process in which next js traverse the whole site and line the js to the compoents where it is needed.
+for eg. if there is server compoent and client compoent next js will rteun only client compoents js and hyderation will link js to clients compoents only.
+which will make loading time very fast.

@@ -27,4 +27,5 @@ It is created from prisma.schema
 npx prisma generate -> command to generate client.
 
 
-Now that you have all the dependencies installed, you can instantiate Prisma Client. You need to pass an instance of the Prisma ORM driver adapter adapter to the PrismaClient constructor:
+Now that you have all the dependencies installed, you can instantiate Prisma Client. 
+You need to pass an instance of the Prisma ORM driver adapter adapter to the PrismaClient constructor:
