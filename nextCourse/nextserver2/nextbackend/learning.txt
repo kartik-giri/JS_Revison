@@ -1,1 +1,100 @@
 1. Bootstraped next js + bun + prisma + postgress project.
+
+2. route group() -> it is used to group multiple routes in a folder to structure them or add layout wihtout affecting the 
+final path.
+the route grup() folder will be ignored by the router.
+
+3. Dynamic route [slug]=> This alwos us to handle dynamic parameters in path by wrapping a folder inside sqaure backets.
+we can get the paramnet value by await the slug/dynamic route.
+
+the of params is promise so we need to await it to get value.
+{params}:{
+    params:Promise<{
+        blogId: string
+    }>
+const {blogId}  = await params
+
+
+4.[...] catch all segments
+5. [..slug] is used to get/handle multiple dynamic parameters in path. and than we can send backedn request accordingly. 
+6. the key insight is — [...slug] is purely a Next.js routing concept. Your backend has no idea about it. 
+You're just using the slug array on the frontend to decide how to call your normal API.
+7. To catch multiple the dynamic parameters in the path we can do it by [...]catch all segments
+
+8. every thing is fine but domain/blog is not renderign any thing cause we are not returning page.tsx in blog folder.
+9. solvutionis to put double square brackets [[...]] now it will handle blog route too. but it is not used much.
+9.# Catch all [[…slug]]
+10. You can also use double brackets like `[[...slug]]` to make the catch-all **optional** (so it can match `/docs` as well as 
+    `/docs/anything/here`).
+
+
+11. SSG
+What even is a "static" site?
+Imagine you have a file hello.html sitting on your computer. You double click it — it opens in the browser instantly. No server needed, no database, no code running. That's a static site at its most basic.
+Static = the files are already made before anyone visits.
+
+Compare that to dynamic:
+Static:  User visits → Server sends pre-built HTML file → Done
+Dynamic: User visits → Server runs code → queries DB → builds HTML → sends it → Done
+
+The problem static sites solve
+Think about a blog with 1000 posts. With a dynamic site (like a normal Next.js app):
+Every single visitor to /blog/my-post does this:
+1. Request hits your server
+2. Server runs JavaScript
+3. Server calls your database → "give me post where slug = my-post"
+4. Database responds
+5. Server builds the HTML
+6. Sends to user
+
+1000 visitors = steps 1-6 happen 1000 times
+With SSG (Static Site Generation):
+At BUILD TIME (once, before anyone visits):
+1. Next.js runs your code
+2. Fetches all posts from DB
+3. Builds HTML files for every post
+4. Saves them as .html files
+
+Now at runtime:
+1000 visitors = just sends the pre-built file 1000 times
+No DB calls. No server code. Just files.
+
+The mental model is simple — use SSG whenever the page content is the same for every user and doesn't change every minute. 
+Blogs, documentation, landing pages, product listings — all perfect candidates for SSG.
+
+## TO FORCE NEXT JS TO GENERATE SSG:-
+1. generateStaticParams — for dynamic routes
+This is the main way. If you have [slug], Next.js won't SSG it unless you tell it which slugs to build:
+tsx// app/blog/[slug]/page.tsx
+
+export async function generateStaticParams() {
+  const res = await fetch("https://api.example.com/posts");
+  const posts = await res.json();
+
+  return posts.map((post) => ({ slug: post.slug }));
+}
+
+const BlogPost = async ({ params }) => {
+  const { slug } = await (params);
+  const res = await fetch(`https://api.example.com/posts/${slug}`);
+  const post = await res.json();
+  return <h1>{post.title}</h1>;
+};
+
+export default BlogPost;
+
+2. dynamic = "force-static" — force any page to be static
+Even if Next.js thinks a page should be dynamic, this forces it to SSG:
+tsx// app/about/page.tsx
+
+export const dynamic = "force-static";  // ← forces SSG
+
+const AboutPage = () => {
+  return <h1>About Us</h1>;
+};
+
+export default AboutPage;
+
+HYDRATION
+1. Hyration is the process of linking JS to the client components on client side to make components full rendered and intractable.
+2. this js comes fro js bundle which is loaded on client side browser and it have js only for client compoent to make it samml and fast to load.
