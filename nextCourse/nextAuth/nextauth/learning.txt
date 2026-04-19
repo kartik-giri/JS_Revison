@@ -1,0 +1,12 @@
+1. Why we can't use localStorage to send JWT from client to server in nextjs?
+2. Becuase unlike react js in which backend request is done by client browser and have the access to local storage. 
+3. In Next the server componets run on the server and it does not have access to the local storage which is present in browser.
+
+For Eg user ask for domain/blogs -> in next js request goes to next js browser and that route page renders on the server if it is making request
+to get localStorage from browser it can't access Becuase it is running on the server and not on browser.
+
+Same eg on react -> in react cleint make request domain/blogs client gets back empty html with js bundle link to it user downloads it and runs
+it on client browser and that js does backend request with localStorage whcih it can access directly from browser localStorage cause it is running 
+on browser. 
+
+4. Creating catch all segment folder in the api route to catch all dynamic params of api route.

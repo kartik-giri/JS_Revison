@@ -38,3 +38,7 @@ which coneect client with db and export it.
 1. this hooks is similar to naivgate hook in react it opens cerain route which is specified.
 import { useRouter } from "next/navigation";
 router.push("/route") -> this route will open and then than route specified page will render.
+
+//Server actions
+1. server actions are the asycn functions which intract with DB and can be called thorugh components directly 
+   without creating api routes.
