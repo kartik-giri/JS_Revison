@@ -2,7 +2,7 @@ import { useContext, useState, createContext, } from "react";
 import Parent from "./Parent";
 
 
-//useCOntext serves as the container to data that we want to share from higher level component to loweer level component directly.
+//createCOntext serves as the container to data that we want to share from higher level component to loweer level component directly.
 const BulbContext = createContext();
 
 //This compoenent takes application part and provides access of context values to all its decendants.

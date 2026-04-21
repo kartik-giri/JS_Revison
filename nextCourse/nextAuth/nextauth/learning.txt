@@ -10,3 +10,71 @@ it on client browser and that js does backend request with localStorage whcih it
 on browser. 
 
 4. Creating catch all segment folder in the api route to catch all dynamic params of api route.
+
+5. serverless is just someone else's computer that only turns on when your users need it.
+
+6. // this would also work but is more verbose
+export const GET = handler;
+export const POST = handler;
+
+// this does the exact same thing as:
+export { handler as GET, handler as POST }
+
+7. export { handler as GET, handler as POST } -> means file is exporting handler function as get and and post so next js can access them because in route.ts we can only 
+export GET, POST PUT or DELETE functions. 
+
+
+8. useSession() is the easiest way to find if user is sign in or not.
+But we have wrap the component which is using useSession inside <SessionProvider>
+
+9. useSession hook runs ok client browser. to check if user is sing in or not.
+10. getServerSession function which runs on server.
+
+NEXTAUTH_SECRET=121212121212121
+NEXTAUTH_URL=http://localhost:3000
+11. NextAuth uses this to sign and encrypt your JWT tokens and cookies.
+12. url This tells NextAuth where your app lives so it knows where to redirect after login/logout.
+
+
+getServerSession() reads the cookie from the incoming request and returns the current logged in user's session data — all on the server side.
+
+What it does step by step
+User visits your page
+      ↓
+Browser automatically sends the auth cookie with the request
+      ↓
+getServerSession() reads that cookie
+      ↓
+Decrypts and verifies it using your NEXTAUTH_SECRET
+      ↓
+Returns the session object if valid
+Returns null if not logged in
+
+
+13. Cookies is the wasy to stored data returned by server on the browser.
+14. Cookie:
+Browser stores it
+Browser sends it automatically with EVERY request
+Server CAN read it
+JavaScript CAN be blocked from reading it (httpOnly)
+
+15. Server sends response with:
+Set-Cookie: token=abc123; httpOnly; secure
+      ↓
+Browser saves it automatically
+      ↓
+Every single request from now on:
+Browser → request + cookie → server
+                                ↓
+                    server reads cookie automatically
+                    no manual work needed
+
+16. Now user sign in next auth authorize() will check if user inputs are correct by matching it with DB.
+17. If it matches next auth returns the user object.
+18. And created the jwt using user object and session expired time.
+19. this jwt is returned by server using cookies to the browser.
+20. browser stores it and send it with every request.
+21. Now user sends new request cokkies goes along with it to the server.
+22. getServerSession() function will get the cokkies and verifiy with the secret key to validate it.
+23. If result is valid getServerSession() will return user session object. and from that we can render user data.
+24. if not valid we can show user the home page so that he can login.
