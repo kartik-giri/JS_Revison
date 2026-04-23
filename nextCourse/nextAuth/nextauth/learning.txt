@@ -51,7 +51,7 @@ Returns the session object if valid
 Returns null if not logged in
 
 
-13. Cookies is the wasy to stored data returned by server on the browser.
+13. Cookies is the way to stored data returned by server on the browser.
 14. Cookie:
 Browser stores it
 Browser sends it automatically with EVERY request
@@ -70,7 +70,7 @@ Browser → request + cookie → server
                     no manual work needed
 
 16. Now user sign in next auth authorize() will check if user inputs are correct by matching it with DB.
-17. If it matches next auth returns the user object.
+17. If it matches wiht DB nextauth returns the user object.
 18. And created the jwt using user object and session expired time.
 19. this jwt is returned by server using cookies to the browser.
 20. browser stores it and send it with every request.
@@ -78,3 +78,15 @@ Browser → request + cookie → server
 22. getServerSession() function will get the cokkies and verifiy with the secret key to validate it.
 23. If result is valid getServerSession() will return user session object. and from that we can render user data.
 24. if not valid we can show user the home page so that he can login.
+
+NextAuth handles:
+✅ Sign in
+✅ Sign out
+✅ Session management
+✅ JWT creation
+✅ OAuth (Google, GitHub etc)
+
+You handle:
+❌ Sign up — you build this yourself
+❌ Password hashing — you do this
+❌ Saving user to DB — you do this

@@ -1,0 +1,10 @@
+1. We shouldn't use monorepo if project services are not dependent on each other or don't share any code.
+2. For eg - A codebase which has a Golang service and a JS service 
+
+3. We should use monorepo when multiple services are sharing same code.
+4. To make centralized tooling and config files. we can create single single tooling or config file for our whole project.
+5. Turborepo provides tools and techniques to make build time more faster.
+
+6. bunx create-turbo@latest
+
+7. Packages are resuable code which can't run independently.
