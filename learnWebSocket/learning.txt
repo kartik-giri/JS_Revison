@@ -3,3 +3,5 @@
 2. Connection is duplex communication on a single TCP connection.
 
 3. Websocket is used for real time conversation between server and the client.
+
+4. socket.clients → a built-in Set of all currently connected clients

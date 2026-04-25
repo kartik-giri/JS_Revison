@@ -1,0 +1,29 @@
+1. Websocket server are scaled frequently in large companies.
+2. So that's why it is better to create webSocket server as separate application and host it on diiferent ports or different machines.
+
+3. bun build is only really needed when your deployment environment doesn't have Bun installed.
+4. Server which have bun as runtime can handle ts files directly in the server. no need to compile ts files into js so that server can runs them on server like we do in nodejs.
+
+5. Backend applications have same tsconfig files so we can put it in packages and import it in application
+
+6. Use res.json() when sending JSON, res.send() for everything else. use in express
+
+7. Make the same ts config dile 2 backend packages and then exted/import it and use the local workspace packages as the dev dependecy.
+
+When to ADD Turborepo
+Only add it when you actually have:
+✅ Multiple frontend apps (marketing site + dashboard + admin)
+✅ Shared UI component library being used across apps
+✅ Multiple backend services
+✅ A team of developers
+
+//Install Prisma in Turborepo
+1. Create db folder in packages.
+2. Just creating package.json file and init bun project
+3. Install prisma
+
+4. Navigate to the project root and run the following command to create and apply your first migration:
+bunx --bun turbo run db:migrate -- --name init
+
+5. bunx --bun turbo run db:generate
+6. Next, export the generated types and an instance of PrismaClient so it can be used in your applications.
