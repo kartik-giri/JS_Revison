@@ -8,7 +8,7 @@
 
 6. Use res.json() when sending JSON, res.send() for everything else. use in express
 
-7. Make the same ts config dile 2 backend packages and then exted/import it and use the local workspace packages as the dev dependecy.
+7. Make the same ts config file 2 backend packages and then exted/import it and use the local workspace packages as the dev dependecy.
 
 When to ADD Turborepo
 Only add it when you actually have:
@@ -27,3 +27,34 @@ bunx --bun turbo run db:migrate -- --name init
 
 5. bunx --bun turbo run db:generate
 6. Next, export the generated types and an instance of PrismaClient so it can be used in your applications.
+Very similar setup like opensource projects.
+
+
+
+7. turbo.json Breakdown
+This is the brain of your Turborepo — it tells Turbo how to run tasks across all your apps and packages.
+
+"dependsOn": ["^build"]   // build dependencies first (e.g. packages/db before apps)
+"inputs": ["$TURBO_DEFAULT$", ".env*"]  // re-build if source or .env files change
+"outputs": [".next/**", "!.next/cache/**"]  // cache the Next.js build output
+
+to cache backend servers output
+"outputs": [
+    ".next/**",          // Next.js (web app)
+    "!.next/cache/**",   // exclude Next.js cache
+    "dist/**"            // ws-server and http-server compiled output
+  ]
+
+  {
+  "scripts": {
+    "build": "bun build src/index.ts --outdir dist",
+    "dev": "bun --watch src/index.ts"
+  }
+}
+Turbo picks up the build script from each app automatically — you don't need to configure each app separately in turbo.json.
+
+8. If running with Node.js → everything must be compiled to JS
+If running with Bun     → nothing needs to be compiled
+
+9. So no need to build application before deploying it. most companies are not building apps if they are using bun to deploy.
+10. Only building  npm packages in companies.
