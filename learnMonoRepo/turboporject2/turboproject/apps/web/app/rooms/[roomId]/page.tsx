@@ -1,4 +1,6 @@
+
 import { Input } from "@repo/ui/input";
+import {SendWsReq} from "../../components/SendWsReq"
 
 const Room = async({params}: {
     params: Promise<{
@@ -6,6 +8,7 @@ const Room = async({params}: {
     }>
 })=>{
     const {roomId} = await params;
+
     return(
         <main style={{
             height:"100vh",
@@ -17,7 +20,7 @@ const Room = async({params}: {
 
             <h1>Chat room</h1>
 
-            <Input placeholder="chat"/>
+          <SendWsReq/>
         </main>
     )
 }

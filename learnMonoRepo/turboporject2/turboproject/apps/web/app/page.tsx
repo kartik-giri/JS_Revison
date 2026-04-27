@@ -1,15 +1,22 @@
 "use client"
 import {Input} from "@repo/ui/input"
 import { useRouter } from "next/navigation";
-import { ReactHTMLElement, useRef } from "react"
+import { ReactHTMLElement, useEffect, useRef } from "react"
+import { useWebSocket } from "./hooks/useWebsocket";
 
 const Home = ()=>{
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null);
- 
+ const {socketRef} = useWebSocket();
 
   const joinFunc = ()=>{
     const inputVal = inputRef.current?.value;
+    socketRef.current?.send(JSON.stringify({
+      type:"join",
+      payload:{
+        roomId:inputVal
+      }
+    }))
     router.push(`/rooms/${inputVal}`)
   }
   return(
