@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Users {
+  id Int @id @default(autoincrement())
+  username String
+  password String
+  email String @unique
+  account Accounts? //prisma can't put contraint on DB level that's we are asying it is optional that every user have account
+  sent_transaction Transactions[] @relation("sent_transaction")
+  recieved_trasaction Transactions[] @relation("received_transaction")
+}
+
+model Accounts{
+  id Int @id @default(autoincrement())
+  balance Int
+  user_id Int @unique
+  user  Users @relation(fields: [user_id], references: [id])
+}
+
+
+//This like person-> freind
+// But what person is father and freind too.
+// Just like user can be sender and reciver too.
+//In that case we need to use name realtion.
+//Transactions connects Users → Users
+//Self-relation (one-to-many, twice)
+model Transactions{
+  id Int @id @default(autoincrement())
+  amount Int
+  
+  senderId Int
+  sender Users @relation("sent_transaction", fields: [senderId], references: [id])
+
+  recieverId Int
+  reciever Users @relation("received_transaction", fields: [recieverId], references: [id])
+
+}

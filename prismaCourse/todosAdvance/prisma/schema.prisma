@@ -17,7 +17,7 @@ model Users {
   userName String @unique
   email String @unique
   password String
-  todo Todos[]
+  todos Todos[]
 }
 
 //One to many realtion
@@ -31,3 +31,11 @@ model Todos{
   userId Int
   user  Users @relation(fields: [userId], references: [id])
 }
+
+/*
+Field     | Stored in DB? | What it returns
+----------|---------------|---------------------------
+todos     | ❌ No          | Array of related todos
+userId    | ✅ Yes         | Foreign key (number)
+user      | ❌ No          | Full related user object
+*/
