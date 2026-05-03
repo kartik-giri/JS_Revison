@@ -1,38 +1,30 @@
 "use client"
 
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { RefObject, useRef, useState } from "react";
 
 
-const signup= ()=> {
-    const usernameRef = useRef<HTMLInputElement>(null);
+const Signin= ()=> {
+
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    let [loader, setLoader] = useState<Boolean>(false)
+    const [loader, setLoader] = useState<boolean>(true);
 
     const router = useRouter()
 
-    const onSignUp= async()=>{
-        setLoader(true);
-        const userName = usernameRef.current!.value;
+    const onSignIn= async()=>{
+        setLoader(false);
         const email = emailRef.current!.value
         const password = passwordRef.current!.value;
 
-        const userResult = await fetch("/api/v1/signup",{
-            method:"POST",
-
-             headers: {
-                  "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                userName: userName,
-                email: email,
-                password: password
-            })
-        });
-        const userObj= await userResult.json()
-        router.push("/api/auth/signin")
-
+        const res = await signIn("credentials", {
+            email: email,
+            password: password,
+            redirect: true,
+            callbackUrl: "/dashboard" // where to go after login
+        })
+        console.log(res)
         
     }
     return <div className="h-screen flex justify-center flex-col">
@@ -41,14 +33,13 @@ const signup= ()=> {
                 <div>
                     <div className="px-10">
                         <div className="text-3xl font-extrabold">
-                            Sign up
+                            Sign in
                         </div>
                     </div>
                     <div className="pt-2">
-                        <LabelledInput ref={usernameRef} label="Username" placeholder="kartik" />
                         <LabelledInput ref={emailRef} label="Email" placeholder="kartik@gmail.com" />
                         <LabelledInput ref={passwordRef} label="Password" type={"password"} placeholder="123456" />
-                        <button onClick={onSignUp} type="button" className="mt-8 w-full text-white bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">{loader? "Loading..." : "Sign up"}</button>
+                        <button onClick={onSignIn} type="button" className="mt-8 w-full text-white bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">{loader? "Sign in" : "Loading..."}</button>
                     </div>
                 </div>
             </a>
@@ -70,4 +61,4 @@ function LabelledInput({ label, placeholder, type, ref }: LabelledInputType) {
     </div>
 }
 
-export default signup
+export default Signin

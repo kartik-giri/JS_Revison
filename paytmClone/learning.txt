@@ -1,0 +1,4 @@
+Sever actions : used both in clietn and server compoenets but can execute only on server.
+The key point is — no matter where you call it from, the action always executes on the server. 
+The client just sends a network request to it behind the scenes. 
+This is why you can safely access DB, env vars, etc. inside server actions even when called from a client component.

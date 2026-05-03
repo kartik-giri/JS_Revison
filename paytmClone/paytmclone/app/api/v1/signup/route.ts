@@ -17,19 +17,37 @@ export const POST = async (req: NextRequest)=>{
 
     const hashedPassword = await bcrypt.hash(password,8)
     try{
-    const user = await prisma.users.create({
+    
+    const txresult = await prisma.$transaction(async (txs)=>{
+        const user = await txs.users.create({
         data:{
             username:userName,
             email:email,
             password:hashedPassword
         }
     })
+
+    const account = await txs.accounts.create({
+        data:{
+            balance:10000,
+            user_id: user.id
+        }
+    })
+
+    return {user, account};
+    },
+      {
+        maxWait:5000,
+        timeout: 10000
+    }
+)
+    
       return Response.json({
-        message:user
+        message:txresult.user
       }, {status:200})
 }catch(e){
         return Response.json({
-            error:`Error occured while signng up`
+            error:`${e}Error occured while signng up`
         }, {status:400})
     }
 

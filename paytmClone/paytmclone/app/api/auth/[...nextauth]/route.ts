@@ -13,7 +13,6 @@ providers: [
     // e.g. domain, username, password, 2FA token, etc.
     // You can pass any HTML attribute to the <input> tag through the object.
     credentials: {
-      userName: { label: "Username", type: "text", placeholder: "kartik" },
       email: { label: "email", type: "text", placeholder: "kartik@gmail.com" },
       password: { label: "Password", type: "password" }
     },
@@ -53,10 +52,16 @@ providers: [
   })
 ],
 secret: process.env.NEXTAUTH_SECRET,
+pages:{
+    signIn: "/signin"
+},
+//“Where should the user be sent now?” decide this
 callbacks: {
-    async redirect({ baseUrl }) {
-      return baseUrl; // ✅ ALWAYS go to home
-    }
+    async redirect({ url, baseUrl }) {
+    if (url.startsWith("/")) return `${baseUrl}${url}`;
+    if (new URL(url).origin === baseUrl) return url;
+    return baseUrl;
+  }
   }
 })
 
