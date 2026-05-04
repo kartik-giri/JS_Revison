@@ -1,0 +1,8 @@
+{
+  "extends": "@repo/typescript-config/backend.json",
+
+  //Tells TypeScript to only type check files inside src/. Files outside src/ are ignored.
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+  
+}

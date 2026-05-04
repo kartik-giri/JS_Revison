@@ -1,7 +1,7 @@
-//Biggest number we save in bormal int is 9007199254740992 if add any thing in it this will cause precision loss
+//Biggest number we save in normal int is 9007199254740992 if add any thing in it this will cause precision loss
 
 let num = 9007199254740992;
-console.log(num+1); //9 printing 007199254740992
+console.log(num+1); //printing 9007199254740992
 
 let bigNum = 9007199254740992n;
 console.log(bigNum+1n); //I have used in contract devlopment for defi contract to safely work with crypto
