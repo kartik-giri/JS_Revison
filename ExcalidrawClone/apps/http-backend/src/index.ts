@@ -1,13 +1,15 @@
+console.log("DB URL:", process.env.DATABASE_URL)
 import express from "express";
-import {signupScheema, signinScheema} from "../lib/zod";
+import {signupScheema, signinScheema} from "@repo/zodpackage";
 import bcrypt from "bcrypt";
 import { prisma } from "@repo/db";
 import jwt from "jsonwebtoken";
-
+import {authMidleware} from "../middleware/authMidleware"
+import { error } from "node:console";
 
 const app = express();
 
-const jwtSecret = "IamSecretJWT"
+const jwtSecret = process.env.JWT_SECRET
 app.use(express.json())
 
 app.post("/signup", async(req,res)=>{
@@ -20,7 +22,7 @@ app.post("/signup", async(req,res)=>{
         return
     }
 
-    const {username, email, password} = req.body();
+    const {username, email, password, avatar} = req.body
     const hashedPassword = await bcrypt.hash(password,8);
 
     try{
@@ -28,7 +30,8 @@ app.post("/signup", async(req,res)=>{
             data:{
                 username:username,
                 email:email,
-                password:hashedPassword
+                password:hashedPassword,
+                avatar:avatar
             }
         })
 
@@ -36,9 +39,10 @@ app.post("/signup", async(req,res)=>{
             message:`${username} Thanks for signing up`
         })
     }catch(e){
+        console.error(e)  // log full error to terminal, not just string interpolation
         res.status(400).json({
-            error: `${e}Error occured while signing up`
-        })
+        error: e instanceof Error ? e.message : String(e)  // ✅ sends full message
+    })
     }
 })
 
@@ -52,7 +56,7 @@ app.post("/signin", async(req,res)=>{
         return
     }
 
-    const {email, password} = req.body();
+    const {email, password} = req.body;
     try{
         const user = await prisma.users.findUnique({
             where:{
@@ -66,7 +70,7 @@ app.post("/signin", async(req,res)=>{
         })
              return
         }
-        const checkPassord = bcrypt.compare(password, user.password)
+        const checkPassord = await bcrypt.compare(password, user.password)
 
         if(!checkPassord){
             res.json({
@@ -74,9 +78,9 @@ app.post("/signin", async(req,res)=>{
             })
             return
         }
-        const jwtToken = jwt.sign({id:user.id},jwtSecret);
+        const jwtToken = jwt.sign({id:user.id},jwtSecret!);
         res.status(200).json({
-            message:jwtToken;
+            message:jwtToken
         })
     }catch(e){
                 res.status(400).json({
@@ -85,10 +89,63 @@ app.post("/signin", async(req,res)=>{
     }
 })
 
-app.post("roomId", async(req,res)=>{
+app.post("/room", authMidleware, async(req,res)=>{
+    const adminId = req.userId;
+    const {slug} = req.body;
+    if(!adminId){
+        res.status(400).json({
+            error:`Admin Id not found while creating room`
+        })
+        return
+    }
+    try {
+        await prisma.rooms.create({
+            data:{
+                slug:slug,
+                adminId:adminId
+            }
+        })
 
+        res.status(200).json({
+            message:`${slug} room is being created.`
+        })
+    } catch (e) {
+        res.status(400).json({
+            error:`Error while creating room`
+        })
+    }
 })
 
+app.get("/room", async(req,res)=>{
+    const slug = req.query.slug as string
+    if(!slug){
+        res.status(400).json({
+            error:`Slug not found while getting room`
+        })
+        return
+    }
+    try{
+        const room = await prisma.rooms.findUnique({
+            where:{
+                slug:slug
+            }
+        })
+        if(!room){
+            res.status(400).json({
+                error:`No room found matching.`
+            })
+            return
+        }
+
+        res.status(200).json({
+            message:room
+        })
+    }catch(e){
+        res.status(400).json({
+            error:`${e} Occured while gettign certain room`
+        })
+    }
+})
 app.listen(3005, ()=>{
     console.log("Http server listening on port 3005 ")
 })

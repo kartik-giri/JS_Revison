@@ -13,9 +13,33 @@ datasource db {
 }
 
 model users {
-  id Int @default(autoincrement()) @id
-  username String @unique
-  email String @unique
-  password String
+  id         Int @default(autoincrement()) @id
+  username   String @unique
+  email      String @unique
+  password   String
+  avatar     String?
+  room       rooms[]
+  chat       chats[]
 }
 
+model rooms {
+  id         Int @default(autoincrement()) @id
+  slug       String @unique //Fancy word for like chemistry-class
+  createdAt  DateTime @default(now()) //sets the time for every entry
+  chat       chats[]
+  adminId    Int
+  user       users @relation(fields: [adminId], references: [id])
+}
+
+model chats{
+  id         Int @default(autoincrement()) @id
+  message    String
+  userId     Int
+  user       users @relation(fields: [userId], references: [id])
+  roomId     Int
+  room       rooms @relation(fields: [roomId], references: [id])
+}
+
+// user -> rooms 1 user to many rooms
+// user -> chat 1 user to many chats
+//room -> chat 1 room can have many associated chats

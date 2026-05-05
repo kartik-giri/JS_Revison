@@ -1,0 +1,7 @@
+{
+    "name": "@repo/zodpackage",
+    "main": "./zod.ts",
+    "exports":{
+        ".": "./zod.ts"
+    }
+}

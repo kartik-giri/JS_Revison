@@ -1,0 +1,21 @@
+1. every application also need database url in there .env file.
+2. add this in db ul sslmode=verify-full
+
+3. we need db url in apps .env file cause:
+
+apps/http-backend/.env — read by Bun at runtime
+bun --watch src/index.ts  ✅ reads apps/http-backend/.env
+When your server actually runs, Bun loads .env from the directory where the process starts — which is apps/http-backend. At this point Prisma CLI is not involved at all — your app just needs DATABASE_URL as an environment variable to create the DB connection.
+
+4. We shouldn't run bun install in indvidal package or app only run on root monorepo
+
+5. NOw we only want valid users to connect with our websocket server.
+6. it can be done by JWTtoken and verifing the token with secret to check if it is valid token or not on ws server.
+7. We are sendign token like this  ws://localhost:8080?token="njnjdcjbdjcb" client will send this while he is trying to connect to es server.
+8. we nned to get token on ws serer and verifiy it to add only valid clients on the server.
+
+9. We have same .env in both our apps we should make it a common package
+packages/db/.env       ← only for Prisma CLI commands
+10. Create .env in turborepo .env
+11. I BELEIVE EVERY APP OR PACKAGE SHOULD HAVE SEPRATE E.NV FILE CAUSE SIM HAVE.
+12. FOR NOW I AM NOT USING ENV PACKAGE IN APPS
