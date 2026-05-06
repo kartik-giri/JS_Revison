@@ -13,6 +13,7 @@
     "apps/http-backend": {
       "name": "http-backend",
       "dependencies": {
+        "@repo/db": "*",
         "@types/bcrypt": "^6.0.0",
         "@types/express": "^5.0.6",
         "@types/jsonwebtoken": "^9.0.10",
@@ -22,7 +23,6 @@
         "zod": "^4.4.1",
       },
       "devDependencies": {
-        "@repo/db": "*",
         "@repo/env": "*",
         "@repo/typescript-config": "*",
         "@repo/zodpackage": "*",
@@ -53,6 +53,7 @@
     "apps/ws-backend": {
       "name": "ws-backend",
       "dependencies": {
+        "@repo/db": "*",
         "@types/jsonwebtoken": "^9.0.10",
         "@types/ws": "^8.18.1",
         "jsonwebtoken": "^9.0.3",
