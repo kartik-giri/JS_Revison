@@ -116,7 +116,7 @@ app.post("/room", authMidleware, async (req, res) => {
     }
 })
 
-app.get("/room", async (req, res) => {
+app.get("/room", authMidleware, async (req, res) => {
     const slug = req.query.slug as string
     if (!slug) {
         res.status(400).json({

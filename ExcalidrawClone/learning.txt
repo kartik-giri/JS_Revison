@@ -19,3 +19,20 @@ packages/db/.env       ← only for Prisma CLI commands
 10. Create .env in turborepo .env
 11. I BELEIVE EVERY APP OR PACKAGE SHOULD HAVE SEPRATE E.NV FILE CAUSE SIM HAVE.
 12. FOR NOW I AM NOT USING ENV PACKAGE IN APPS
+
+//Mind map to create frontend.
+1. What app should do?
+-> users can send join multiple rooms and send msgs.
+
+2. Who are users.
+-> Authorized log in users.
+
+3. Pages?
+-> signup,
+   signin,
+   Dashboard, -> users can see all rooms and create and join other rooms
+   room[..slug]
+
+4. Sections for each Page.
+-> Dashboard-> Create room, join other rooms with there compoents.
+-> room[..slug]-> header, chats,input box with send btn

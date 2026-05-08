@@ -131,7 +131,7 @@ ws.on("connection", async(socket, request )=>{
                     type:"chat",
                     room: roomId,
                     message: message,
-                    userId: currentUser.userId
+                    fromUserId: currentUser.userId
                 }))
             })
         }
