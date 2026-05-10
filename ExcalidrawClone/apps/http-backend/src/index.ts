@@ -6,9 +6,11 @@ import { prisma } from "@repo/db";
 import jwt from "jsonwebtoken";
 import { authMidleware } from "../middleware/authMidleware"
 import { error } from "node:console";
+import cors from "cors"
 
 const app = express();
 
+app.use(cors())
 const jwtSecret = process.env.JWT_SECRET
 app.use(express.json())
 

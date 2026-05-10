@@ -36,3 +36,68 @@ packages/db/.env       ← only for Prisma CLI commands
 4. Sections for each Page.
 -> Dashboard-> Create room, join other rooms with there compoents.
 -> room[..slug]-> header, chats,input box with send btn
+
+For every component:
+├── Server or Client component?
+│     has onClick/useState    → Client
+│     just displays data      → Server
+│
+├── Where does data come from?
+│     DB → fetch in server component, pass as props
+│     API → useEffect or React Query
+│     Realtime → websocket/useSocket hook
+│
+├── What can go wrong?
+│     loading state needed?   → yes/no
+│     error state needed?     → yes/no
+│     empty state needed?     → yes/no
+│
+└── Does it need auth?
+      yes → middleware or check session
+      no  → public route
+
+1. ✅ What does app do?
+2. ✅ List all pages
+3. ✅ Break pages into sections
+4. ✅ Break sections into components
+5. ✅ Decide server vs client per component
+6. ✅ Map data flow (where data comes from)
+7. ✅ Sketch boxes in your head (rough layout)
+8. ✅ Setup folder structure
+9. ✅ Code
+
+
+
+//Canvas
+Canvas is basically a blank whiteboard in HTML that you can draw on using JavaScript.
+
+HTML gives you the whiteboard:
+html<canvas id="myCanvas" width="800" height="600"></canvas>
+JavaScript gives you the pen:
+javascriptconst canvas = document.getElementById("myCanvas")
+const ctx = canvas.getContext("2d")  // ctx = your pen/brush
+
+ctx is everything — it has all drawing methods:
+javascript// Draw a rectangle
+ctx.fillRect(x, y, width, height)
+
+// Draw a line
+ctx.beginPath()
+ctx.moveTo(x1, y1)   // pick up pen, move to start
+ctx.lineTo(x2, y2)   // draw line to end
+ctx.stroke()          // actually render it
+
+// Draw a circle
+ctx.beginPath()
+ctx.arc(x, y, radius, 0, Math.PI * 2)
+ctx.stroke()
+
+// Write text
+ctx.fillText("hello", x, y)
+
+Think of it like physical drawing:
+ctx.beginPath()   →  pick up pen from paper
+ctx.moveTo()      →  place pen at starting point
+ctx.lineTo()      →  drag pen to draw line
+ctx.stroke()      →  press pen down (makes it visible)
+ctx.fill()        →  fill shape with color
