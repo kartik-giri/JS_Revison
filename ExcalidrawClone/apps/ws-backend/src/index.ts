@@ -58,7 +58,7 @@ ws.on("connection", async(socket, request )=>{
     const queryParams = new URLSearchParams(url.split("?")[1]);
     const token = queryParams.get("token");
 
-    const userId = checkUser(token!)
+    const userId = Number(checkUser(token!))
     if(!userId){
         socket.close()
         return
@@ -66,7 +66,7 @@ ws.on("connection", async(socket, request )=>{
 
     const currentUser = {
         ws: socket,
-        userId: userId
+        userId: Number(userId)
     }
 
     /*
@@ -77,7 +77,8 @@ ws.on("connection", async(socket, request )=>{
     }
     */
     socket.on("message", async(data)=>{
-        const parsedData = JSON.parse(data as unknown as string); //parsed user message.
+        const parsedData = JSON.parse(data.toString()); //parsed user message.
+         console.log("Data Send by client:", parsedData)
 
         //Socket join the room
         if(parsedData.type === "join-room"){
@@ -103,12 +104,12 @@ ws.on("connection", async(socket, request )=>{
 
         /*
            {
-            type:"Chat",
+            type:"chat",
             message:string
             roomId: Int
             }
         */
-        if(parsedData.type === "Chat"){
+        if(parsedData.type === "chat"){
             const roomId = parsedData.roomId;
             const message= parsedData.message;
 
@@ -122,7 +123,7 @@ ws.on("connection", async(socket, request )=>{
                 data:{
                     message:message,
                     userId:userId,
-                    roomId: roomId
+                    roomId: Number(roomId)
                 }
             })
 

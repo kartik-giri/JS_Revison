@@ -113,7 +113,7 @@ app.post("/room", authMidleware, async (req, res) => {
         })
     } catch (e) {
         res.status(400).json({
-            error: `Error while creating room`
+            error: `${e}Error while creating room`
         })
     }
 })
