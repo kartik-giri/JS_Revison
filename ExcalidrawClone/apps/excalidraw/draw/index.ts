@@ -14,7 +14,7 @@ type Shape = {
 export const initDraw = async(canvas: HTMLCanvasElement, roomId: string, socket:WebSocket)=>{
     console.log("Canvas is loaded")
             const ctx = canvas.getContext("2d"); //Get the context of the canvas,
-
+            //Getting existing shapes from db
             let existingShapes: Shape[] = await getExistingShapes(roomId)
 
             if(!ctx){
@@ -87,6 +87,10 @@ const getExistingShapes = async(roomId: string)=>{
     const res = await fetch(`http://localhost:3005/chat?roomid=${roomId}`);
     const chatsObj = await res.json();
     const chats = chatsObj.message;
+    if(!chatsObj.message){
+        console.log("Failed to fetch chats!")
+        return []
+    }
 
     const shapes = chats.map((X:{message:string})=>{
         const messageData = JSON.parse(X.message);
@@ -96,4 +100,10 @@ const getExistingShapes = async(roomId: string)=>{
     return shapes;
 
 }
+/*
+chats:{
+id:int,
+message:{shape:{x,y}}
+}
+*/
 

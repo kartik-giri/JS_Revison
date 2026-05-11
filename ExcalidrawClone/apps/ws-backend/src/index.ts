@@ -128,6 +128,7 @@ ws.on("connection", async(socket, request )=>{
             })
 
             room.forEach((user)=>{
+              
                 user.ws.send(JSON.stringify({
                     type:"chat",
                     room: roomId,

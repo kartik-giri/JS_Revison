@@ -17,6 +17,8 @@ const CanvasPage = async ({params}:{
 
 export default CanvasPage
 
+//Cause this components runds on the server it can't access the localstorage to get jwt for authentication.
+
 
 
 

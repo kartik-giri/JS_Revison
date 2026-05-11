@@ -93,7 +93,7 @@ app.post("/signin", async (req, res) => {
 
 app.post("/room", authMidleware, async (req, res) => {
     const adminId = req.userId;
-    const { slug } = req.body;
+    const  slug  = req.body.slug;
     if (!adminId) {
         res.status(400).json({
             error: `Admin Id not found while creating room`
@@ -174,6 +174,17 @@ app.get("/chat", async (req, res) => {
     } catch (e) {
         res.status(400).json({
             error: `${e} while gettign chats`
+        })
+    }
+})
+
+app.get("/rooms" ,async(req,res)=>{
+    try{const rooms = await prisma.rooms.findMany();
+    res.status(200).json({
+        message:rooms
+    })}catch(e){
+        res.status(400).json({
+            error:`${e}`
         })
     }
 })
