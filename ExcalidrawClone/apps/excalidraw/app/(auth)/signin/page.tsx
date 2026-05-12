@@ -32,6 +32,7 @@ const Signin= ()=> {
         const jwtToken = resobj.message;
         localStorage.setItem("jwtToken", jwtToken);
         console.log(resobj)
+        router.push("/ddashboard")
         
     }
     return <div className="h-screen flex justify-center flex-col">
