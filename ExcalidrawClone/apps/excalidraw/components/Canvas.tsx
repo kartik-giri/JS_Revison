@@ -4,6 +4,7 @@ import { useWindowSize } from "@/hooks/useWindowSize"
 import { useEffect, useRef, useState } from "react"
 import { IconButton } from "./IconButton"
 import { Circle, Pencil, RectangleHorizontal } from "lucide-react"
+import { Game } from "@/draw/Game"
 
 export enum Shapes {
         circle,
@@ -13,29 +14,32 @@ export enum Shapes {
 export const Canvas = ({roomId, socket}: {roomId: string, socket: WebSocket})=>{
 
 
-    const [selctedShape, setSelctedShape] = useState<Shapes>();
+    const [selctedShape, setSelctedShape] = useState<Shapes>(Shapes.circle);
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const {width, height} = useWindowSize();
-
-    useEffect(()=>{
-        //@ts-ignore
-        window.selectedTool = selctedShape; //bad approch for making selectedshape accessibel to initDraw.
-    },[selctedShape])
+    const [game, setGame] = useState<Game>();
+    
     useEffect(()=>{
         if(canvasRef.current){
         const canvas = canvasRef.current
 
-        let cleanUp : (()=>void) | undefined
-        const init = async()=>{
-        cleanUp = await initDraw(canvas,roomId, socket)
+        const gameObj = new Game(canvas,roomId, socket, selctedShape);
+        if(!gameObj){
+            return
         }
-        init();
+        setGame(gameObj);
+
 
         return ()=>{
-            cleanUp?.()
+           gameObj.cleanEvents();
         }
     }
     },[height,width])
+
+    useEffect(()=>{
+        game?.setSelectedShape(selctedShape);
+    },[selctedShape])
+
     return(
         <div style={{position:"relative"}}>
             <canvas ref={canvasRef} width={width} height={height} style={{background:"black"}}></canvas>
