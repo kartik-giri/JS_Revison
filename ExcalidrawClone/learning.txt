@@ -101,3 +101,56 @@ ctx.moveTo()      →  place pen at starting point
 ctx.lineTo()      →  drag pen to draw line
 ctx.stroke()      →  press pen down (makes it visible)
 ctx.fill()        →  fill shape with color
+
+
+PANNING
+1. Panning is the act of moving window across the map.
+2. pan x means how many pixels shapes will render on x a-axis.
+3. 2. pan y means how many pixels shapes will render on y a-axis.
+4. viewportTransform — tracks where your viewport is:
+const viewportTransform = {
+    x: 0,      // how much we've panned horizontally
+    y: 0,      // how much we've panned vertically
+    scale: 1   // zoom level
+}
+
+5.updatePanning — how pan amount is calculated:
+javascriptconst updatePanning = (e) => {
+    const localX = e.clientX   // current mouse position
+    const localY = e.clientY
+
+    // how far did mouse move since last frame?
+    viewportTransform.x += localX - previousX
+    viewportTransform.y += localY - previousY
+    //                      ↑
+    //              delta = difference between
+    //              current and previous position
+
+    previousX = localX  // save for next frame
+    previousY = localY
+}
+Example:
+previousX = 100  (mouse was here)
+localX    = 120  (mouse moved here)
+
+delta = 120 - 100 = 20px moved right
+viewportTransform.x += 20  ← pan right by 20px
+
+Next frame:
+previousX = 120
+localX    = 115  (mouse moved left)
+
+delta = 115 - 120 = -5px
+viewportTransform.x += -5  ← pan left by 5px
+
+In panning means winfdow is moving across the map.
+means cordinates are changed from 0,0 to lets say 100,100
+means viewport is moved to 100 px right and 100 px down.
+which means the previous shapes which renders on (10,10) becomes rndering on (110,110);
+
+What you SEE:          What actually happens:
+─────────────          ──────────────────────
+shapes moving →        coordinate system moving
+                       shapes staying still
+                       but appearing in different
+                       screen positions

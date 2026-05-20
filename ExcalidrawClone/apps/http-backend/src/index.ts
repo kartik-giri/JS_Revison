@@ -166,7 +166,7 @@ app.get("/chat", async (req, res) => {
             orderBy:{
                 id:"desc"
             },
-            take:50 //desc and take combine gives 50 entries starting from end. to get latest 50 entries
+            take:1000 //desc and take combine gives 50 entries starting from end. to get latest 50 entries
         })
         res.status(200).json({
             message: chats
@@ -179,7 +179,8 @@ app.get("/chat", async (req, res) => {
 })
 
 app.get("/rooms" ,async(req,res)=>{
-    try{const rooms = await prisma.rooms.findMany();
+    try{
+    const rooms = await prisma.rooms.findMany();
     res.status(200).json({
         message:rooms
     })}catch(e){

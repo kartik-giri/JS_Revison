@@ -13,12 +13,16 @@ export enum Shapes {
     }
 export const Canvas = ({roomId, socket}: {roomId: string, socket: WebSocket})=>{
 
-
-    const [selctedShape, setSelctedShape] = useState<Shapes>(Shapes.circle);
+    const [selctedShape, setSelctedShape] = useState<Shapes>(Shapes.pencil);
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const {width, height} = useWindowSize();
     const [game, setGame] = useState<Game>();
     
+    /*
+    The bug is that game init function is async which is waitng and event are registered after the await that's why when clean up is run it has no effect on events.
+    cause events are registered later and than both the games will have registered events.
+    Solution for async init is boolean flag
+    */
     useEffect(()=>{
         if(canvasRef.current){
         const canvas = canvasRef.current
