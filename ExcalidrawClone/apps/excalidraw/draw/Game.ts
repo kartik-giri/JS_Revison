@@ -63,6 +63,15 @@ export class Game {
   // =========================
   private scale: number = 1;
 
+  //Moving shapes
+
+  private movingShapeIndex: number | null = null;
+
+  private moveMouseStartX: number = 0;
+  private moveMouseStartY: number = 0;
+
+  private originalShape: Shape | null = null;
+
   constructor(
     canvas: HTMLCanvasElement,
     roomId: string,
@@ -132,7 +141,11 @@ export class Game {
     );
 
     // DRAW SHAPES
-    this.existingShapes.forEach((shape) => {
+    //filter is used to create new array out of the value which passes certain condition.
+    //.filter(Boolean) is short form for -> arr.filter((item) => !!item)
+    this.existingShapes.filter(Boolean).forEach((shape) => {
+      // console.log("Shapes to render",shape)
+
       if (shape.type === "rect") {
         this.ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
       } else if (shape.type === "circle") {
@@ -168,15 +181,93 @@ export class Game {
   };
 
   // =====================================
+  // FIND SHAPE AT POINT
+  // =====================================
+  isPointsAtShape = (x: number, y: number) => {
+    // START FROM TOP SHAPE
+    for (let i = this.existingShapes.length - 1; i >= 0; i--) {
+      const shape = this.existingShapes[i];
+
+      // RECTANGLE
+      if (shape.type === "rect") {
+        if (
+          x >= shape.x &&
+          x <= shape.x + shape.width &&
+          y >= shape.y &&
+          y <= shape.y + shape.height
+        ) {
+          return {
+            shape,
+            index: i,
+          };
+        }
+      }
+
+      // CIRCLE
+      else if (shape.type === "circle") {
+        // DISTANCE BETWEEN MOUSE AND CENTER
+        const distance = Math.hypot(x - shape.centerX, y - shape.centerY);
+
+        // IF DISTANCE IS INSIDE RADIUS
+        if (distance <= shape.radius) {
+          return {
+            shape,
+            index: i,
+          };
+        }
+      }
+
+      // PENCIL
+      else if (shape.type === "pencil") {
+        for (const point of shape.points) {
+          const distance = Math.hypot(x - point.x, y - point.y);
+
+          // 10px HITBOX
+          if (distance <= 10) {
+            return {
+              shape,
+              index: i,
+            };
+          }
+        }
+      }
+    }
+
+    return null;
+  };
+
+  // =====================================
+  // DELETE SHAPE
+  // =====================================
+  deleteShape = (index: number) => {
+    this.existingShapes.splice(index, 1);
+
+    this.render();
+
+    // this.socket.send(
+    //   JSON.stringify({
+    //     type: "chat",
+    //     message: JSON.stringify({
+    //       type: "erase",
+    //       index,
+    //     }),
+    //     roomId: this.roomId,
+    //   }),
+    // );
+  };
+
+  // =====================================
   // MOUSE DOWN
   // =====================================
+  //Only when user clicks we ge the the vertices not every time when user drags.
   mousedownHanlder = (e: MouseEvent) => {
     // MIDDLE CLICK => PAN
     // e.button === 1 -> Middle click (wheel click)
     if (e.button === 1) {
       this.isPanning = true;
 
-      this.lastPanX = e.clientX; //e.client means screen coordinate let's say initialy it is 500px
+      this.lastPanX = e.clientX;
+
       this.lastPanY = e.clientY;
 
       return;
@@ -184,14 +275,56 @@ export class Game {
 
     this.clicked = true;
 
-    const coords = this.getMouseCoordinates(e.offsetX, e.offsetY); //Let's say panx by 300x pc user's cursor is at 400x but original x coordinate is (offset - panx) 400-300 = 100 original world coorinates.
+    const coords = this.getMouseCoordinates(e.offsetX, e.offsetY);
 
     this.startX = coords.x;
     this.startY = coords.y;
 
+    console.log("Start world vertices", this.startX, this.startY);
+
     this.lastX = coords.x;
     this.lastY = coords.y;
 
+    // =====================================
+    // ERASER
+    // =====================================
+    if (this.selectedShape === Shapes.eraser) {
+      const result = this.isPointsAtShape(coords.x, coords.y);
+
+      if (!result) return;
+
+      this.deleteShape(result.index);
+
+      return;
+    }
+
+    // =====================================
+    // MOVE
+    // =====================================
+    if (this.selectedShape === Shapes.move) {
+      const result = this.isPointsAtShape(coords.x, coords.y);
+
+      if (!result) {
+        return;
+      }
+
+      this.movingShapeIndex = result.index;
+
+      console.log("Selected shape to move", result.shape);
+
+      //We are using structuredClone because normal assignment copies reference.
+
+      this.originalShape = structuredClone(result.shape);
+
+      this.moveMouseStartX = coords.x;
+      this.moveMouseStartY = coords.y;
+
+      return;
+    }
+
+    // =====================================
+    // PENCIL
+    // =====================================
     if (this.selectedShape === Shapes.pencil) {
       this.currentPencilPoints = [
         {
@@ -208,6 +341,31 @@ export class Game {
   mouseupHandler = (e: MouseEvent) => {
     if (this.isPanning) {
       this.isPanning = false;
+
+      return;
+    }
+
+    // =====================================
+    // STOP MOVE
+    // =====================================
+    if (this.selectedShape === Shapes.move) {
+      this.movingShapeIndex = null;
+
+      this.originalShape = null;
+
+      this.clicked = false;
+
+      this.socket.send(
+        JSON.stringify({
+          type: "chat",
+          message: JSON.stringify({
+            type: "sync",
+            shapes: this.existingShapes,
+          }),
+          roomId: this.roomId,
+        }),
+      );
+
       return;
     }
 
@@ -216,10 +374,12 @@ export class Game {
     const coords = this.getMouseCoordinates(e.offsetX, e.offsetY);
 
     const width = coords.x - this.startX;
+
     const height = coords.y - this.startY;
 
     let shape: Shape | null = null;
 
+    // RECTANGLE
     if (this.selectedShape === Shapes.rectangle) {
       shape = {
         type: "rect",
@@ -228,7 +388,10 @@ export class Game {
         width,
         height,
       };
-    } else if (this.selectedShape === Shapes.circle) {
+    }
+
+    // CIRCLE
+    else if (this.selectedShape === Shapes.circle) {
       const radius = Math.min(Math.abs(width), Math.abs(height)) / 2;
 
       shape = {
@@ -237,7 +400,10 @@ export class Game {
         centerX: this.startX + width / 2,
         centerY: this.startY + height / 2,
       };
-    } else if (this.selectedShape === Shapes.pencil) {
+    }
+
+    // PENCIL
+    else if (this.selectedShape === Shapes.pencil) {
       shape = {
         type: "pencil",
         points: this.currentPencilPoints,
@@ -246,14 +412,11 @@ export class Game {
 
     if (!shape) return;
 
-    this.existingShapes.push(shape);
-
-    this.render();
-
     this.socket.send(
       JSON.stringify({
         type: "chat",
         message: JSON.stringify({
+          type: "add",
           shape,
         }),
         roomId: this.roomId,
@@ -262,21 +425,56 @@ export class Game {
   };
 
   // =====================================
+  // MOVE SHAPE
+  // =====================================
+  moveShape = (shape: Shape, dx: number, dy: number) => {
+    // RECT
+    if (shape.type === "rect") {
+      return {
+        ...shape,
+        x: shape.x + dx,
+        y: shape.y + dy,
+      };
+    }
+
+    // CIRCLE
+    else if (shape.type === "circle") {
+      return {
+        ...shape,
+        centerX: shape.centerX + dx,
+        centerY: shape.centerY + dy,
+      };
+    }
+
+    // PENCIL
+    else {
+      return {
+        ...shape,
+        points: shape.points.map((point) => ({
+          x: point.x + dx,
+          y: point.y + dy,
+        })),
+      };
+    }
+  };
+
+  // =====================================
   // MOUSE MOVE
   // =====================================
   mousemovegHandler = (e: MouseEvent) => {
     // PAN
     if (this.isPanning) {
-      const dx = e.clientX - this.lastPanX; //530-500 -> move canvas right to 30px
+      const dx = e.clientX - this.lastPanX;
+
       const dy = e.clientY - this.lastPanY;
 
       this.panX += dx;
       this.panY += dy;
 
-      this.lastPanX = e.clientX; //e.clientX means screen space  it become now 530x
+      this.lastPanX = e.clientX;
       this.lastPanY = e.clientY;
 
-      this.render(); //make the canvas transfor right to 30 px x and render shapes to there world coordinates.
+      this.render();
 
       return;
     }
@@ -284,9 +482,33 @@ export class Game {
     // DRAW
     if (!this.clicked) return;
 
-    const coords = this.getMouseCoordinates(e.offsetX, e.offsetY); //let's say scnvas is moved by 30Px x by making lastPanx 530 from 500 and now offset is at 600Px. getting real world coordinates now.
+    const coords = this.getMouseCoordinates(e.offsetX, e.offsetY);
+
+    // =====================================
+    // MOVE OBJECT
+    // =====================================
+    if (
+      this.selectedShape === Shapes.move &&
+      this.movingShapeIndex !== null &&
+      this.originalShape
+    ) {
+      const dx = coords.x - this.moveMouseStartX;
+
+      const dy = coords.y - this.moveMouseStartY;
+
+      const movedShape = this.moveShape(this.originalShape, dx, dy);
+
+      // UPDATE SHAPE
+      this.existingShapes[this.movingShapeIndex] = movedShape as Shape;
+
+      // RE-RENDER
+      this.render();
+
+      return;
+    }
 
     const width = coords.x - this.startX;
+
     const height = coords.y - this.startY;
 
     const selectedTool = this.selectedShape;
@@ -351,20 +573,8 @@ export class Game {
     // ======================
     if (e.ctrlKey) {
       const mouseX = e.offsetX;
-      const mouseY = e.offsetY;
 
-      // Lets say there is rect on screen scpace 400px.
-      // and 300Px on wolrd space. pan = 100px
-      // Scale become 2.
-      // Screen space = (300*2)+100 => 700 
-      // Drawing system shifted to 700px from 400px and cursor is not on top of rect any more.
-      // so we need to correct the caluculation. 
-      // By changing pan
-      // we know scree space(400) == screen space(300*2)+100
-      // panx = offsetX - worldX * scale
-      // panx = 400 - 300 *2 -> 400 - 600 => -200 
-      // Now ScreenX = (300*2) +(-200)=> 600 -200 = 400
-      // Boom Afer zoom cursor is at same place.
+      const mouseY = e.offsetY;
 
       // WORLD POSITION BEFORE ZOOM
       const worldX = (mouseX - this.panX) / this.scale;
@@ -392,8 +602,8 @@ export class Game {
     // ======================
     // TWO FINGER PAN
     // ======================
-    //With this we are moving our canvas left side.
-    this.panX -= e.deltaX; //how much fingers moved. lets say moved 20 right than we need to subtract from pan cause world is moving left
+    this.panX -= e.deltaX;
+
     this.panY -= e.deltaY;
 
     this.render();
@@ -406,9 +616,28 @@ export class Game {
     const message = JSON.parse(event.data);
 
     if (message.type === "chat") {
-      const parsedShape = JSON.parse(message.message);
+      const parsedData = JSON.parse(message.message);
 
-      this.existingShapes.push(parsedShape.shape);
+      // =====================================
+      // ADD SHAPE
+      // =====================================
+      if (parsedData.type === "add") {
+        this.existingShapes.push(parsedData.shape);
+      }
+
+      // =====================================
+      // ERASE SHAPE
+      // =====================================
+      else if (parsedData.type === "erase") {
+        this.existingShapes.splice(parsedData.index, 1);
+      }
+
+      // =====================================
+      // FULL SYNC
+      // =====================================
+      else if (parsedData.type === "sync") {
+        this.existingShapes = parsedData.shapes;
+      }
 
       this.render();
     }
@@ -470,6 +699,7 @@ rect visually appears at (400,100)
 because:
 
 screen = world + cameraOffset
+
 FINAL FORMULA
 
 Rendering:
@@ -486,6 +716,9 @@ These two formulas ARE panning.
 
 
 for zooming->
-screenX = worldX * scale + panX //scale =1 ->100% world x original coords
+
+screenX = worldX * scale + panX
 screenY = worldY * scale + panY
+
+scale = 1 -> 100%
 */

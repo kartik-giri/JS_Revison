@@ -154,3 +154,18 @@ shapes moving →        coordinate system moving
                        shapes staying still
                        but appearing in different
                        screen positions
+
+
+// Grabbing and moving existing shapes.
+1. Get the world coordinates when mouse is down and shape selcted is grab.
+2. check is the world corrinates are inside any shape if yes 
+3. a. get the shape index. b. store the shape in originalShape var to store it.
+4. in move handler get the delta .
+5. update the original shape  with delta.
+6. get the shape and update the exisitng shape array index with nupdated shape.
+7. re-render the exisitn shape ar with updated shapes delta
+
+//Eraser
+1. get the wrold x coorinates if tool is eraser mouse down.
+2. than check if point is over shape.
+3. get ht eshape delete it render the array.

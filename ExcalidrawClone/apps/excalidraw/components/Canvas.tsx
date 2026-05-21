@@ -3,13 +3,15 @@ import { initDraw } from "@/draw"
 import { useWindowSize } from "@/hooks/useWindowSize"
 import { useEffect, useRef, useState } from "react"
 import { IconButton } from "./IconButton"
-import { Circle, Pencil, RectangleHorizontal } from "lucide-react"
+import { Circle, Eraser, Hand, Pencil, RectangleHorizontal } from "lucide-react"
 import { Game } from "@/draw/Game"
 
 export enum Shapes {
         circle,
         rectangle,
-        pencil
+        pencil,
+        move,
+        eraser
     }
 export const Canvas = ({roomId, socket}: {roomId: string, socket: WebSocket})=>{
 
@@ -60,6 +62,16 @@ export const Canvas = ({roomId, socket}: {roomId: string, socket: WebSocket})=>{
                 <IconButton onClick={()=>{
                     setSelctedShape(Shapes.rectangle)
                 }} active={selctedShape=== Shapes.rectangle} icon={<RectangleHorizontal/>}></IconButton>
+
+
+                <IconButton onClick={()=>{
+                    setSelctedShape(Shapes.move)
+                }} active={selctedShape=== Shapes.move} icon={<Hand/>}></IconButton>
+
+                <IconButton onClick={()=>{
+                    setSelctedShape(Shapes.eraser)
+                }} active={selctedShape=== Shapes.eraser} icon={<Eraser/>}></IconButton>
+            
             </div>
         </div>
     )
