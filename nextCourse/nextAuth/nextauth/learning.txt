@@ -25,9 +25,9 @@ export GET, POST PUT or DELETE functions.
 
 
 8. useSession() is the easiest way to find if user is sign in or not.
-But we have wrap the component which is using useSession inside <SessionProvider>
+But we have to wrap the component which is using useSession inside <SessionProvider>
 
-9. useSession hook runs ok client browser. to check if user is sing in or not.
+9. useSession hook runs ok client browser. to check if user is sign in or not.
 10. getServerSession function which runs on server.
 
 NEXTAUTH_SECRET=121212121212121
