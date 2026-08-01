@@ -1,9 +1,9 @@
-//Hoisting means javaScript moves declarations to the top of the scope before execution
+//Hoisting means javaScript moves declarations to the top of the scope before execution or calling it.
 
 console.log(a); //Js hoist the var at the top of the block and make it undefine.
 var a = 12;
 
-//Js hoist the normal function at the top of block which let allow us calling the normal function before defining them.
+//Js hoist the normal function at the top of block which  allow us calling the normal function before defining them.
 
 callFunction();
 

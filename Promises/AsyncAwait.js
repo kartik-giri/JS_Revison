@@ -1,72 +1,101 @@
 const fs = require("fs");
 const path = require("path");
 
-// /*
-// They are modern JavaScript keywords that make asynchronous code look like synchronous code.
+// // /*
+// // They are modern JavaScript keywords that make asynchronous code look like synchronous code.
 
-// 🔹 async makes a function always return a Promise
-// 🔹 await pauses execution until a Promise resolves
-// */
+// // 🔹 async makes a function always return a Promise
+// // 🔹 await pauses execution until a Promise resolves
+// // */
 
 
 
-let funTimeout =(sec)=>{
-    return new Promise((resolve)=>{
-        setTimeout(resolve,sec)
-    })
-}
+// let funTimeout =(sec)=>{
+//     return new Promise((resolve)=>{
+//         setTimeout(resolve,sec)
+//     })
+// }
 
-let asyncTimeout =async ()=>{
-    await funTimeout(1000);
-    console.log("runs after 1 sec");
+// let asyncTimeout =async ()=>{
+//     await funTimeout(1000);
+//     console.log("runs after 1 sec");
     
-    await funTimeout(3000);
-    console.log("runs after 3 sec")
-}
+//     await funTimeout(3000);
+//     console.log("runs after 3 sec")
+// }
 
-asyncTimeout();
+// asyncTimeout();
 
-//async await file read
+// //async await file read
 
 
-// let funcReadFile = () => {
-//   const filePath = path.join(__dirname, "wish.txt");
-//   console.log("Current directory:", process.cwd());
-//   console.log("Looking for file at:", filePath);
+// // let funcReadFile = () => {
+// //   const filePath = path.join(__dirname, "wish.txt");
+// //   console.log("Current directory:", process.cwd());
+// //   console.log("Looking for file at:", filePath);
 
-//   return new Promise((resolve, reject) => {
-//     if (!fs.existsSync(filePath)) {
-//       reject(new Error("File does not exist"));
-//       return;
-//     }
-//     fs.readFile(filePath, "utf-8", (err, data) => {
-//       if (err) {
+// //   return new Promise((resolve, reject) => {
+// //     if (!fs.existsSync(filePath)) {
+// //       reject(new Error("File does not exist"));
+// //       return;
+// //     }
+// //     fs.readFile(filePath, "utf-8", (err, data) => {
+// //       if (err) {
+// //         reject(err);
+// //       } else {
+// //         resolve(data);
+// //       }
+// //     });
+// //   });
+// // };
+
+// // let readFileAsync = async () => {
+// //   try {
+// //     let data = await funcReadFile();
+// //     console.log("File content:\n", data);
+// //   } catch (err) {
+// //     console.error("Failed to read file:", err.message);
+// //   }
+// // };
+
+// // readFileAsync();
+
+
+
+// let funcReadFilePromise = ()=>{
+//   return new Promise((resolve,reject)=>{
+//     fs.readFile("wish.txt", "utf-8", (err,data)=>{
+//       if(err){
 //         reject(err);
-//       } else {
+//       }else{
 //         resolve(data);
 //       }
-//     });
-//   });
-// };
+//     })
+//   })
+// }
 
-// let readFileAsync = async () => {
-//   try {
-//     let data = await funcReadFile();
-//     console.log("File content:\n", data);
-//   } catch (err) {
-//     console.error("Failed to read file:", err.message);
+// let asyncReadFile = async ()=>{
+//   try{
+//     let readFileResult = await funcReadFilePromise();
+//     console.log("File data is:", readFileResult);
+//   }catch(err){
+//     console.log("Error is:", err)
 //   }
-// };
 
-// readFileAsync();
+// }
+
+// asyncReadFile()
 
 
 
-let funcReadFilePromise = ()=>{
-  return new Promise((resolve,reject)=>{
-    fs.readFile("wish.txt", "utf-8", (err,data)=>{
+
+
+const readfileAsync = ()=>{
+  return new Promise((resolve, reject)=>{
+    fs.readFile("wish.txt", "utf-8", (err, data)=>{
       if(err){
         reject(err);
+       
       }else{
         resolve(data);
       }
@@ -74,17 +103,17 @@ let funcReadFilePromise = ()=>{
   })
 }
 
-let asyncReadFile = async ()=>{
+const main = async ()=>{
   try{
-    let readFileResult = await funcReadFilePromise();
-    console.log("File data is:", readFileResult);
+  const result = await readfileAsync();
+  console.log(result)
   }catch(err){
-    console.log("Error is:", err)
+    console.log(`Erro occueed while readinf file ${err}`)
   }
+  
+} 
 
-}
-
-asyncReadFile()
+main()
 
 
 

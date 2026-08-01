@@ -1,4 +1,5 @@
 //Biggest number we save in normal int is 9007199254740992 if add any thing in it this will cause precision loss
+//Normal int is of size 64 bits
 
 let num = 9007199254740992;
 console.log(num+1); //printing 9007199254740992
