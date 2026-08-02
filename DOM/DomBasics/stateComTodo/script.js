@@ -24,7 +24,7 @@ let addTodoFunc = (arrObj )=>{
     deleteBtn.addEventListener("click", ()=>{
         // divTodo.parentNode.removeChild(divTodo);
         //See very important here we are not changing dom we are just chaingin state to delete element.
-        todoArr.splice(divTodo.getAttribute("id"),1)
+        todoArr.splice (divTodo.getAttribute("id"),1)
         render();
         console.log(count)
     })
