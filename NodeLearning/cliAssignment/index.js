@@ -44,7 +44,7 @@ program.command("count")
 program.parse();//It’s the method that tells Commander:
 //“Okay, take everything the user typed in the terminal and parse it according to the arguments and options I defined.”
 //Without program.parse(), Commander won’t read or process anything.
-
+//  node index.js count file.txt
 
 
 

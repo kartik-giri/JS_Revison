@@ -103,7 +103,7 @@ const readfileAsync = ()=>{
   })
 }
 
-const main = async ()=>{
+const main = async()=>{
   try{
   const result = await readfileAsync();
   console.log(result)
