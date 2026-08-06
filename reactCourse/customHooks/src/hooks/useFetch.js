@@ -48,7 +48,7 @@ export const useFetch = (url, time)=>{
          setLoading(false)
     }
     useEffect(()=>{
-        const id = setInterval(getDetails, time*1000)
+        const id = setInterval(getDetails, time*1000) //refetching // sedning http request repeatledely to get fresh data. 
 
         getDetails();
 
