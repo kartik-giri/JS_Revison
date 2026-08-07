@@ -21,6 +21,18 @@ export const useDebounce=(reqFunction)=>{
     return debounceFunc
 }
 
+// Thing is that when user type someting in serach bar. search function should be called after some delay.
+//It returns the debounce func which call certain function after delay
+// export const useDebounce = (funcCall)=>{
+//     const ref = useRef();
+
+//     const debounceFunc = ()=>{
+//         clearTimeout(ref.current)
+//         ref.current = setTimeout(funcCall,200)
+//     }
+//     return debounceFunc
+// }
+
 // setDebouncedValue(value); Does trigger one re-render, BUT
 // ➡ It does NOT re-run the effect unless value changed.
 export const useDebounceGeneric = (value, delay)=>{

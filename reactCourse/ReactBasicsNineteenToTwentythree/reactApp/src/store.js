@@ -35,6 +35,11 @@ export const useCountStore = create((set)=>({
   decrease: ()=> set((state)=>({count: state.count-1}))
 }))
 
+// export const useCount = create((set)=>({
+//   count:0,
+//   increase: set((state)=>({count:state.count+1}))
+// }))
+
 
 /*
 If you want to return an object using an arrow function, always wrap it with parentheses:
