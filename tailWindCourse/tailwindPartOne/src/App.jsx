@@ -1,4 +1,4 @@
-import AuthPage from "./Pages/AuthPage";
+import AuthPage from "./pages/AuthPage";
 import EmailPage from "./pages/EmailPage";
 
 
