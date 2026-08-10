@@ -5,7 +5,7 @@ interface User {
 }
 
 // type Users = { [key: string]: User };
-
+//REcord is an utility type which is sued to deinfe objects type in TS
 type Users = Record<string,User>
 
 const users: Users = {

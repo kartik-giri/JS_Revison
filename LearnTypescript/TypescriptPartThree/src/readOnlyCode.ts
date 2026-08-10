@@ -11,3 +11,5 @@ const user: Readonly<User>={
 }
 //Readonly<Interface/type Name> -> this syntax is also fine
 // user.age=23;//We can't change now readonly properties
+
+//If there is an object which we do not want to change after initalizng in that case we can make the type readonly.
