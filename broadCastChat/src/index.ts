@@ -41,7 +41,7 @@ wss.on("connection", (socket: customSocketType)=>{
         }
     })
 
-    socket.on("close", ()=>{
+    socket.on(" close", ()=>{
             let roomId = socket.roomId;
 
             if(roomId){
