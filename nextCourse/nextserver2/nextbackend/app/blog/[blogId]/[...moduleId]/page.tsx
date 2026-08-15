@@ -12,4 +12,4 @@ const course = async ({params}: {
     )
 }
 
-export default course
+export default  course
