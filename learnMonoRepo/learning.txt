@@ -7,4 +7,4 @@
 
 6. bunx create-turbo@latest
 
-7. Packages are  resuable code which can't run independently.
+7. Packages are resuable code which can't run independently.
