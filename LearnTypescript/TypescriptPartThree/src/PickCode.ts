@@ -18,3 +18,4 @@ checkAge({firstName:"kartik",age:23})
 //Pick is used to create the subset of the type.
 // Imagine we get user objhect but need only the subset of theat object to show on screen.
 // in that case using pcik we can create subset type.
+// userSubType = Pick<User, "firsName"| "age">

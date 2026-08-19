@@ -61,3 +61,7 @@ res.json({result});
 });
 
 app.listen(3001);
+
+/*
+CORS (Cross-Origin Resource Sharing) is a browser security mechanism that allows or restricts a web application running on one origin from accessing resources on a different origin. By default, browsers enforce the Same-Origin Policy. To allow requests from specific origins, the server sends CORS headers such as Access-Control-Allow-Origin, which can be configured using CORS middleware in frameworks like Express.
+*/

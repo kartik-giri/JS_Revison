@@ -142,7 +142,7 @@ export class Game {
 
     // DRAW SHAPES
     //filter is used to create new array out of the value which passes certain condition.
-    //.filter(Boolean) is short form for -> arr.filter((item) => !!item)
+    //.filter(Boolean) is short form for -> arr.filter((item) => !item)
     this.existingShapes.filter(Boolean).forEach((shape) => {
       // console.log("Shapes to render",shape)
 
